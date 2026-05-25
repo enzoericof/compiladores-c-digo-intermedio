@@ -12,6 +12,7 @@ const agendaItems = [
   "Relleno con retroceso",
   "Llamada a procedimientos"
 ];
+const sectionDividerSlides = new Set([4, 19, 34, 50, 69, 75, 91]);
 
 function normalizeLine(line) {
   return line.replace(/\s+/g, " ").trim();
@@ -86,8 +87,8 @@ function buildCoverSlide() {
   section.innerHTML = `
     <div class="slide-shell cover-shell">
       <p class="eyebrow">Materia: Compiladores</p>
-      <h2>${parsed.title || "Generación de Código Intermedio"}</h2>
-      <p class="lead">Tema central de la unidad dedicado a la representación intermedia y a su papel dentro del proceso de traducción.</p>
+      <h2>${parsed.title || "Generaci\u00f3n de C\u00f3digo Intermedio"}</h2>
+      <p class="lead">Tema central de la unidad dedicado a la representaci\u00f3n intermedia y a su papel dentro del proceso de traducci\u00f3n.</p>
       <div class="presenter-box">
         <p class="slide-note">Autores</p>
         <div class="presenter-list">
@@ -148,11 +149,45 @@ function buildVisualCard(slideNumber, title) {
 
   aside.appendChild(gallery);
 
-  const paragraph = document.createElement("p");
-  paragraph.textContent = "Figura de apoyo para acompañar la explicación del concepto.";
-  aside.appendChild(paragraph);
-
   return aside;
+}
+
+function buildSectionDividerSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const badge = parsed.groups[0]?.[0] || parsed.badge || String(Math.ceil(slideNumber / 10)).padStart(2, "0");
+  const files = getManifestImages(slideNumber);
+
+  const section = document.createElement("section");
+  section.className = "slide section-divider-slide";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell section-divider-shell";
+
+  if (files.length > 0) {
+    const media = document.createElement("div");
+    media.className = files.length > 1 ? "section-divider-media multi" : "section-divider-media";
+
+    files.forEach((fileName, imageIndex) => {
+      const image = document.createElement("img");
+      image.src = getImageSrc(fileName);
+      image.alt = `Figura ${imageIndex + 1} de la secci\u00f3n ${badge}: ${parsed.title}`;
+      media.appendChild(image);
+    });
+
+    shell.appendChild(media);
+  }
+
+  const copy = document.createElement("div");
+  copy.className = "section-divider-copy";
+  copy.innerHTML = `
+    <p class="section-divider-number">${badge}</p>
+    <h2>${parsed.title}</h2>
+  `;
+
+  shell.appendChild(copy);
+  section.appendChild(shell);
+  return section;
 }
 
 function buildContentSlide(entry, index) {
@@ -227,7 +262,15 @@ function buildContentSlide(entry, index) {
 function renderDeck() {
   deck.appendChild(buildCoverSlide());
   deck.appendChild(buildAgendaSlide());
+
   slideMetadata.slice(2).forEach((entry, index) => {
+    const slideNumber = index + 3;
+
+    if (sectionDividerSlides.has(slideNumber)) {
+      deck.appendChild(buildSectionDividerSlide(entry, slideNumber));
+      return;
+    }
+
     deck.appendChild(buildContentSlide(entry, index + 2));
   });
 }
