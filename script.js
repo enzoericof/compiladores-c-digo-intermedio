@@ -3,6 +3,15 @@ const coverAuthors = ["Ram\u00f3n Chacal", "Enzo Erico"];
 const slideMetadata = Array.isArray(window.slideMetadata) ? window.slideMetadata : [];
 const slideImages = window.slideImages || {};
 const variants = ["variant-a", "variant-b", "variant-c", "variant-d"];
+const agendaItems = [
+  "Lenguajes intermedios",
+  "Declaraciones",
+  "Proposiciones de Asignaci\u00f3n",
+  "Expresiones Booleanas",
+  "Proposiciones Case",
+  "Relleno con retroceso",
+  "Llamada a procedimientos"
+];
 
 function normalizeLine(line) {
   return line.replace(/\s+/g, " ").trim();
@@ -88,6 +97,28 @@ function buildCoverSlide() {
     </div>
   `;
 
+  return section;
+}
+
+function buildAgendaSlide() {
+  const section = document.createElement("section");
+  section.className = "slide agenda-slide";
+  section.id = "slide-2";
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell agenda-shell";
+
+  const list = document.createElement("ol");
+  list.className = "agenda-list";
+
+  agendaItems.forEach((item) => {
+    const entry = document.createElement("li");
+    entry.innerHTML = `<span>${item}</span>`;
+    list.appendChild(entry);
+  });
+
+  shell.appendChild(list);
+  section.appendChild(shell);
   return section;
 }
 
@@ -202,8 +233,9 @@ function buildContentSlide(entry, index) {
 
 function renderDeck() {
   deck.appendChild(buildCoverSlide());
-  slideMetadata.slice(1).forEach((entry, index) => {
-    deck.appendChild(buildContentSlide(entry, index + 1));
+  deck.appendChild(buildAgendaSlide());
+  slideMetadata.slice(2).forEach((entry, index) => {
+    deck.appendChild(buildContentSlide(entry, index + 2));
   });
 }
 
