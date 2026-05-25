@@ -1,4 +1,5 @@
 const deck = document.getElementById("deck");
+const coverAuthors = ["Ramón Chacal", "Enzo Erico"];
 const slideMetadata = Array.isArray(window.slideMetadata) ? window.slideMetadata : [];
 const variants = ["variant-a", "variant-b", "variant-c", "variant-d"];
 
@@ -63,7 +64,6 @@ function createCard(title, lines) {
 function buildCoverSlide() {
   const firstSlide = slideMetadata[0] ?? { text: "" };
   const parsed = parseSlide(firstSlide.text);
-  const presenterLine = parsed.flatLines[parsed.flatLines.length - 1] || "Material base de la materia";
 
   const section = document.createElement("section");
   section.className = "slide";
@@ -78,9 +78,9 @@ function buildCoverSlide() {
         Se conservan el orden temático, los conceptos y la secuencia original.
       </p>
       <div class="presenter-box">
-        <p class="slide-note">Autores del material base</p>
+        <p class="slide-note">Autores</p>
         <div class="presenter-list">
-          <span>${presenterLine}</span>
+          ${coverAuthors.map((author) => `<span>${author}</span>`).join("")}
         </div>
       </div>
     </div>

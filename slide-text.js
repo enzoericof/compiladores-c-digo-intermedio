@@ -2,7 +2,7 @@
     {
         "slide":  1,
         "name":  "Slide1",
-        "text":  "Generación de Código  Intermedio | Compiladores 2024 | Kevin March y Gonzalo Yambay"
+        "text":  "Generación de Código  Intermedio | Compiladores 2024"
     },
     {
         "slide":  2,
