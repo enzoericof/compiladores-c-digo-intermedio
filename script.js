@@ -17,6 +17,16 @@ const whyIntermediateItems = [
   "Se puede aplicar a la representación intermedia un optimizador de código independiente de la máquina."
 ];
 const sectionDividerSlides = new Set([4, 19, 34, 50, 69, 75, 91]);
+const plainTextSlides = new Set([20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]);
+const interleavedLayouts = {
+  22: ["text:0", "image:0", "text:1", "image:1"],
+  24: ["text:0", "row:image=0+caption=1,image=1"],
+  25: ["text:0", "row:image=0,image=1"],
+  26: ["text:0", "image:0"],
+  27: ["text:0", "image:0", "text:1"],
+  30: ["text:0", "image:0", "text:1", "image:1"],
+  32: ["image:0", "text:0", "text:1", "text:2", "image:1"]
+};
 
 function normalizeLine(line) {
   return line.replace(/\s+/g, " ").trim();
@@ -106,13 +116,33 @@ function inferCardTitle(lines, groupIndex) {
   return "Apunte";
 }
 
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function renderInline(text) {
+  let safe = escapeHtml(text);
+  safe = safe.replace(/\*\*\*([^*]+)\*\*\*/g, "<strong><em>$1</em></strong>");
+  safe = safe.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  safe = safe.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  return safe;
+}
+
 function createCard(title, lines) {
   const article = document.createElement("article");
   article.className = "card";
 
-  const heading = document.createElement("h3");
-  heading.textContent = title;
-  article.appendChild(heading);
+  if (title) {
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+    article.appendChild(heading);
+  } else {
+    article.classList.add("card-untitled");
+  }
 
   if (lines.length === 0) {
     article.classList.add("card-title-only");
@@ -121,7 +151,7 @@ function createCard(title, lines) {
 
   if (lines.length === 1) {
     const paragraph = document.createElement("p");
-    paragraph.textContent = lines[0];
+    paragraph.innerHTML = renderInline(lines[0]);
     article.appendChild(paragraph);
     return article;
   }
@@ -131,7 +161,7 @@ function createCard(title, lines) {
 
   lines.forEach((line) => {
     const item = document.createElement("li");
-    item.textContent = line;
+    item.innerHTML = renderInline(line);
     list.appendChild(item);
   });
 
@@ -253,9 +283,13 @@ function buildVisualCard(slideNumber, title) {
   const aside = document.createElement("aside");
   aside.className = "source-card";
 
-  const heading = document.createElement("h3");
-  heading.textContent = files.length > 1 ? "Figuras del tema" : "Figura del tema";
-  aside.appendChild(heading);
+  if (!plainTextSlides.has(slideNumber)) {
+    const heading = document.createElement("h3");
+    heading.textContent = files.length > 1 ? "Figuras del tema" : "Figura del tema";
+    aside.appendChild(heading);
+  } else {
+    aside.classList.add("source-card-untitled");
+  }
 
   const gallery = document.createElement("div");
   gallery.className = files.length > 1 ? "image-gallery multi" : "image-gallery";
@@ -306,6 +340,15 @@ function buildSectionDividerSlide(entry, slideNumber) {
   `;
 
   shell.appendChild(copy);
+
+  const bubbleText = parsed.groups[1]?.[0];
+  if (bubbleText) {
+    const bubble = document.createElement("div");
+    bubble.className = "section-divider-bubble";
+    bubble.textContent = bubbleText;
+    shell.appendChild(bubble);
+  }
+
   section.appendChild(shell);
   return section;
 }
@@ -365,11 +408,112 @@ function buildThreeAddressTypesSlide(entry, slideNumber) {
   return section;
 }
 
+function buildInterleavedSlide(entry, slideNumber, layout) {
+  const parsed = parseSlide(entry.text);
+  const files = getManifestImages(slideNumber);
+
+  const section = document.createElement("section");
+  section.className = "slide slide-plain slide-interleaved";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+  shell.appendChild(head);
+
+  if (parsed.title) {
+    const heading = document.createElement("div");
+    heading.className = "section-heading";
+    const title = document.createElement("h2");
+    title.textContent = parsed.title;
+    heading.appendChild(title);
+    shell.appendChild(heading);
+  }
+
+  const stack = document.createElement("div");
+  stack.className = "interleaved-stack";
+
+  layout.forEach((token) => {
+    const [kind, idxStr] = token.split(":");
+    const idx = Number(idxStr);
+    if (kind === "text") {
+      const group = parsed.groups[idx];
+      if (!group) return;
+      stack.appendChild(createCard("", group));
+    } else if (kind === "caption") {
+      const group = parsed.groups[idx];
+      if (!group) return;
+      const caption = document.createElement("p");
+      caption.className = "interleaved-caption";
+      caption.textContent = group.join(" ");
+      stack.appendChild(caption);
+    } else if (kind === "image") {
+      const file = files[idx];
+      if (!file) return;
+      const figure = document.createElement("figure");
+      figure.className = "interleaved-figure";
+      const img = document.createElement("img");
+      img.src = getImageSrc(file);
+      img.alt = `Figura ${idx + 1} de la diapositiva ${slideNumber}: ${parsed.title}`;
+      figure.appendChild(img);
+      stack.appendChild(figure);
+    } else if (kind === "row") {
+      const row = document.createElement("div");
+      row.className = "interleaved-row";
+      idxStr.split(",").forEach((columnToken) => {
+        const column = document.createElement("div");
+        column.className = "interleaved-row-cell";
+        columnToken.split("+").forEach((piece) => {
+          const [subKind, subIdx] = piece.split("=");
+          const i = Number(subIdx);
+          if (subKind === "image") {
+            const file = files[i];
+            if (!file) return;
+            const figure = document.createElement("figure");
+            figure.className = "interleaved-figure";
+            const img = document.createElement("img");
+            img.src = getImageSrc(file);
+            img.alt = `Figura ${i + 1} de la diapositiva ${slideNumber}: ${parsed.title}`;
+            figure.appendChild(img);
+            column.appendChild(figure);
+          } else if (subKind === "caption") {
+            const group = parsed.groups[i];
+            if (!group) return;
+            const caption = document.createElement("p");
+            caption.className = "interleaved-caption";
+            caption.textContent = group.join(" ");
+            column.appendChild(caption);
+          } else if (subKind === "text") {
+            const group = parsed.groups[i];
+            if (!group) return;
+            column.appendChild(createCard("", group));
+          }
+        });
+        row.appendChild(column);
+      });
+      stack.appendChild(row);
+    }
+  });
+
+  shell.appendChild(stack);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildContentSlide(entry, index) {
   const slideNumber = index + 1;
   const parsed = parseSlide(entry.text);
   const section = document.createElement("section");
-  section.className = `slide ${variants[index % variants.length]}`;
+  const plainClass = plainTextSlides.has(slideNumber) ? " slide-plain" : "";
+  section.className = `slide ${variants[index % variants.length]}${plainClass}`;
   section.id = `slide-${slideNumber}`;
 
   const shell = document.createElement("div");
@@ -418,13 +562,15 @@ function buildContentSlide(entry, index) {
     parsed.groups.length > 1 &&
     parsed.groups.every((group) => group.length === 1 && group[0].length <= 32);
 
+  const suppressLabels = plainTextSlides.has(slideNumber);
+
   parsed.groups.forEach((group, groupIndex) => {
     if (useGroupAsCardTitle) {
       contentMain.appendChild(createCard(group[0], []));
       return;
     }
 
-    const cardTitle = inferCardTitle(group, groupIndex);
+    const cardTitle = suppressLabels ? "" : inferCardTitle(group, groupIndex);
     contentMain.appendChild(createCard(cardTitle, group));
   });
 
@@ -469,6 +615,11 @@ function renderDeck() {
 
     if (slideNumber === 12) {
       deck.appendChild(buildThreeAddressTypesSlide(entry, slideNumber));
+      return;
+    }
+
+    if (interleavedLayouts[slideNumber]) {
+      deck.appendChild(buildInterleavedSlide(entry, slideNumber, interleavedLayouts[slideNumber]));
       return;
     }
 
