@@ -289,6 +289,15 @@ a {
   background: white;
 }
 
+.image-gallery {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.image-gallery.multi {
+  grid-template-columns: 1fr;
+}
+
 .source-card p {
   margin-top: 0.75rem;
 }

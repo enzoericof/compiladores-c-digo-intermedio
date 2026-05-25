@@ -1,6 +1,7 @@
 const deck = document.getElementById("deck");
-const coverAuthors = ["Ramón Chacal", "Enzo Erico"];
+const coverAuthors = ["Ram\u00f3n Chacal", "Enzo Erico"];
 const slideMetadata = Array.isArray(window.slideMetadata) ? window.slideMetadata : [];
+const slideImages = window.slideImages || {};
 const variants = ["variant-a", "variant-b", "variant-c", "variant-d"];
 
 function normalizeLine(line) {
@@ -29,8 +30,12 @@ function parseSlide(rawText) {
   };
 }
 
-function getSlideImagePath(index) {
-  return `./slides-export/Diapositiva${index}.PNG`;
+function getManifestImages(slideNumber) {
+  return Array.isArray(slideImages[slideNumber]) ? slideImages[slideNumber] : [];
+}
+
+function getImageSrc(fileName) {
+  return `./Im%C3%A1genes/${encodeURIComponent(fileName)}`;
 }
 
 function createCard(title, lines) {
@@ -72,8 +77,8 @@ function buildCoverSlide() {
   section.innerHTML = `
     <div class="slide-shell cover-shell">
       <p class="eyebrow">Materia: Compiladores</p>
-      <h2>${parsed.title || "Generación de Código Intermedio"}</h2>
-      <p class="lead">Tema central de la unidad dedicado a la representación intermedia y a su papel dentro del proceso de traducción.</p>
+      <h2>${parsed.title || "Generacion de Codigo Intermedio"}</h2>
+      <p class="lead">Tema central de la unidad dedicado a la representacion intermedia y a su papel dentro del proceso de traduccion.</p>
       <div class="presenter-box">
         <p class="slide-note">Autores</p>
         <div class="presenter-list">
@@ -86,35 +91,51 @@ function buildCoverSlide() {
   return section;
 }
 
-function buildSourceCard(index, title, useImage) {
-  const aside = document.createElement("aside");
-  aside.className = useImage ? "source-card" : "empty-card";
+function buildVisualCard(slideNumber, title) {
+  const files = getManifestImages(slideNumber);
 
-  const heading = document.createElement("h3");
-  heading.textContent = useImage ? "Apoyo visual" : "Nota";
-  aside.appendChild(heading);
-
-  if (useImage) {
-    const image = document.createElement("img");
-    image.src = getSlideImagePath(index);
-    image.alt = `Figura de apoyo de la diapositiva ${index}: ${title}`;
-    aside.appendChild(image);
+  if (files.length === 0) {
+    const aside = document.createElement("aside");
+    aside.className = "empty-card";
+    aside.innerHTML = `
+      <h3>Nota</h3>
+      <p>Resumen breve del punto tratado en esta lamina.</p>
+    `;
+    return aside;
   }
 
+  const aside = document.createElement("aside");
+  aside.className = "source-card";
+
+  const heading = document.createElement("h3");
+  heading.textContent = files.length > 1 ? "Figuras del tema" : "Figura del tema";
+  aside.appendChild(heading);
+
+  const gallery = document.createElement("div");
+  gallery.className = files.length > 1 ? "image-gallery multi" : "image-gallery";
+
+  files.forEach((fileName, imageIndex) => {
+    const image = document.createElement("img");
+    image.src = getImageSrc(fileName);
+    image.alt = `Figura ${imageIndex + 1} de la diapositiva ${slideNumber}: ${title}`;
+    gallery.appendChild(image);
+  });
+
+  aside.appendChild(gallery);
+
   const paragraph = document.createElement("p");
-  paragraph.textContent = useImage
-    ? "Figura de apoyo para acompañar la explicación del concepto."
-    : "Resumen breve del punto tratado en esta lámina.";
+  paragraph.textContent = "Figura de apoyo para acompanar la explicacion del concepto.";
   aside.appendChild(paragraph);
 
   return aside;
 }
 
 function buildContentSlide(entry, index) {
+  const slideNumber = index + 1;
   const parsed = parseSlide(entry.text);
   const section = document.createElement("section");
   section.className = `slide ${variants[index % variants.length]}`;
-  section.id = `slide-${index + 1}`;
+  section.id = `slide-${slideNumber}`;
 
   const shell = document.createElement("div");
   shell.className = "slide-shell";
@@ -122,7 +143,7 @@ function buildContentSlide(entry, index) {
   const head = document.createElement("div");
   head.className = "slide-head";
   head.innerHTML = `
-    <span class="slide-number">${String(index + 1).padStart(2, "0")}</span>
+    <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
   `;
 
   const heading = document.createElement("div");
@@ -136,7 +157,7 @@ function buildContentSlide(entry, index) {
   } else {
     const eyebrow = document.createElement("p");
     eyebrow.className = "eyebrow";
-    eyebrow.textContent = `Diapositiva ${index + 1}`;
+    eyebrow.textContent = `Diapositiva ${slideNumber}`;
     heading.appendChild(eyebrow);
   }
 
@@ -158,19 +179,17 @@ function buildContentSlide(entry, index) {
     empty.className = "card";
     empty.innerHTML = `
       <h3>Idea principal</h3>
-      <p>Esta lámina se apoya principalmente en una figura o en una composición breve para reforzar la explicación oral.</p>
+      <p>Esta lamina se apoya principalmente en una figura o en una composicion breve para reforzar la explicacion oral.</p>
     `;
     contentMain.appendChild(empty);
-    contentSide.appendChild(buildSourceCard(index + 1, parsed.title, true));
   } else {
     parsed.groups.forEach((group, groupIndex) => {
       const cardTitle = groupIndex === 0 ? "Contenido" : `Detalle ${groupIndex + 1}`;
       contentMain.appendChild(createCard(cardTitle, group));
     });
-
-    const useImage = parsed.groups.length < 3 || parsed.flatLines.length < 6;
-    contentSide.appendChild(buildSourceCard(index + 1, parsed.title, useImage));
   }
+
+  contentSide.appendChild(buildVisualCard(slideNumber, parsed.title));
 
   shell.appendChild(head);
   shell.appendChild(heading);
