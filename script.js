@@ -12,6 +12,10 @@ const agendaItems = [
   "Relleno con retroceso",
   "Llamada a procedimientos"
 ];
+const whyIntermediateItems = [
+  "Se facilita la redestinación; se puede crear un compilador para una máquina distinta uniendo una etapa final para la nueva máquina a una etapa inicial ya existente.",
+  "Se puede aplicar a la representación intermedia un optimizador de código independiente de la máquina."
+];
 const sectionDividerSlides = new Set([4, 19, 34, 50, 69, 75, 91]);
 
 function normalizeLine(line) {
@@ -119,6 +123,54 @@ function buildAgendaSlide() {
   });
 
   shell.appendChild(list);
+  section.appendChild(shell);
+  return section;
+}
+
+function buildWhyIntermediateSlide() {
+  const files = getManifestImages(3);
+  const section = document.createElement("section");
+  section.className = "slide why-slide";
+  section.id = "slide-3";
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell why-shell";
+
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "eyebrow";
+  eyebrow.textContent = "Diapositiva 3";
+
+  const title = document.createElement("h2");
+  title.className = "why-title";
+  title.textContent = "¿Por qué usar código intermedio?";
+
+  const list = document.createElement("ul");
+  list.className = "why-list";
+
+  whyIntermediateItems.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+
+  shell.appendChild(eyebrow);
+  shell.appendChild(title);
+  shell.appendChild(list);
+
+  if (files.length > 0) {
+    const media = document.createElement("div");
+    media.className = "why-media";
+
+    files.forEach((fileName, imageIndex) => {
+      const image = document.createElement("img");
+      image.src = getImageSrc(fileName);
+      image.alt = `Figura ${imageIndex + 1} de la diapositiva 3`;
+      media.appendChild(image);
+    });
+
+    shell.appendChild(media);
+  }
+
   section.appendChild(shell);
   return section;
 }
@@ -262,16 +314,17 @@ function buildContentSlide(entry, index) {
 function renderDeck() {
   deck.appendChild(buildCoverSlide());
   deck.appendChild(buildAgendaSlide());
+  deck.appendChild(buildWhyIntermediateSlide());
 
-  slideMetadata.slice(2).forEach((entry, index) => {
-    const slideNumber = index + 3;
+  slideMetadata.slice(3).forEach((entry, index) => {
+    const slideNumber = index + 4;
 
     if (sectionDividerSlides.has(slideNumber)) {
       deck.appendChild(buildSectionDividerSlide(entry, slideNumber));
       return;
     }
 
-    deck.appendChild(buildContentSlide(entry, index + 2));
+    deck.appendChild(buildContentSlide(entry, index + 3));
   });
 }
 
