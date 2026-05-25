@@ -52,6 +52,60 @@ function getImageSrc(fileName) {
   return `./Im%C3%A1genes/${encodeURIComponent(fileName)}`;
 }
 
+function inferCardTitle(lines, groupIndex) {
+  const text = lines.join(" ").toLowerCase();
+
+  if (text.includes("ejemplo")) {
+    return "Ejemplo";
+  }
+
+  if (text.includes("defin") || text.includes("se define")) {
+    return "Definición";
+  }
+
+  if (text.includes("ventaja") || text.includes("se facilita") || text.includes("se puede")) {
+    return "Ventaja";
+  }
+
+  if (text.includes("código") || text.includes("goto") || text.includes(":=") || text.includes("param")) {
+    return "Código";
+  }
+
+  if (text.includes("algoritmo") || text.includes("paso")) {
+    return "Algoritmo";
+  }
+
+  if (text.includes("estructura") || text.includes("representación")) {
+    return "Estructura";
+  }
+
+  if (text.includes("traducción") || text.includes("traduccion")) {
+    return "Traducción";
+  }
+
+  if (text.includes("observ") || text.includes("obsérvese") || text.includes("nota")) {
+    return "Observación";
+  }
+
+  if (text.includes("proceso") || text.includes("procedimiento") || text.includes("cómo") || text.includes("como")) {
+    return "Proceso";
+  }
+
+  if (groupIndex === 0) {
+    return "Idea clave";
+  }
+
+  if (groupIndex === 1) {
+    return "Punto clave";
+  }
+
+  if (groupIndex === 2) {
+    return "Conclusión";
+  }
+
+  return "Apunte";
+}
+
 function createCard(title, lines) {
   const article = document.createElement("article");
   article.className = "card";
@@ -289,7 +343,7 @@ function buildContentSlide(entry, index) {
   contentMain.className = "content-main";
 
   parsed.groups.forEach((group, groupIndex) => {
-    const cardTitle = groupIndex === 0 ? "Contenido" : `Detalle ${groupIndex + 1}`;
+    const cardTitle = inferCardTitle(group, groupIndex);
     contentMain.appendChild(createCard(cardTitle, group));
   });
 
