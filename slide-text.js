@@ -47,17 +47,17 @@
     {
         "slide":  10,
         "name":  "Slide9",
-        "text":  "Código de tres direcciones | t1\t= - c  t2\t= b * t1  t3\t= - c  t4\t= b * t3\rt5\t= t2\t+ t4  a\t\t= t5"
+        "text":  "Código de tres direcciones | t1\t= - c;\r\rt2\t= b * t1;\r\rt3\t= - c;\r\rt4\t= b * t3;\r\rt5\t= t2 + t4;\r\ra\t= t5"
     },
     {
         "slide":  11,
         "name":  "Slide10",
-        "text":  "Código de tres direcciones | t1\t= - c  t2\t= b * t1\rt5\t= t2\t+ t2  a\t\t= t5"
+        "text":  "Código de tres direcciones | t1\t= - c;\r\rt2\t= b * t1;\r\rt5\t= t2 + t2;\r\ra\t= t5"
     },
     {
         "slide":  12,
         "name":  "Slide11",
-        "text":  "Tipos de proposiciones de tres direcciones | 6. param x y call p,n\r7. x\t= y [i] ; x [i]\t= y\r8. x : = \u0026y | Operación binaria | Operación unaria | Proposiciones de copia | Salto incondicional, se ejecuta la proposición con etiqueta E | Salto condicional, si x pone oprel en relación con y | Secuencia de prop. de 3 direcciones para llamadas a proc. | i unidades de memoria más allá de la posición | Asignación de direcciones"
+        "text":  "Tipos de proposiciones de tres direcciones | 6. param x; call p,n\r7. x\t= y[i]; x[i]\t= y\r8. x := \u0026y | Operación binaria | Operación unaria | Proposiciones de copia | Salto incondicional, se ejecuta la proposición con etiqueta E | Salto condicional, si x pone oprel en relación con y | Secuencia de prop. de 3 direcciones para llamadas a proc. | i unidades de memoria más allá de la posición | Asignación de direcciones"
     },
     {
         "slide":  13,
@@ -152,7 +152,7 @@
     {
         "slide":  31,
         "name":  "Slide25",
-        "text":  "Nombres de campos dentro de registros. | Después de que aparezca la palabra clave record, la acción asociada con el marcador L crea una nueva tabla de símbolos  para los nombres de los campos con t:= creatabla(nil) luego con mete(t, tblapn) y mete(0, desplazamiento) se  introduce un apuntador en esta tabla de símbolos en la pila tblapn y la dirección relativa 0 se introduce en la pila  desplazamiento respectivamente."
+        "text":  "Nombres de campos dentro de registros. | Después de que aparezca la palabra clave record, la acción asociada con el marcador L crea una nueva tabla de símbolos para los nombres de los campos con t := creatabla(nil); luego, con mete(t, tblapn) y mete(0, desplazamiento), se introduce un apuntador en esta tabla de símbolos en la pila tblapn y la dirección relativa 0 se introduce en la pila desplazamiento, respectivamente."
     },
     {
         "slide":  32,
@@ -177,7 +177,7 @@
     {
         "slide":  36,
         "name":  "Slide30",
-        "text":  "Reutilización de nombres temporales | La mayor parte de los temporales que indican datos se genera durante la  traducción dirigida por la sintaxis de las expresiones, mediante reglas. Por ej, el  código generado por las reglas E→ E1 + E2 de la ﬁg, 8.15 tiene la forma general:\revaluar E1 en t1  evaluar E2 en t2  t := t1 + t2"
+        "text":  "Reutilización de nombres temporales | La mayor parte de los temporales que indican datos se genera durante la traducción dirigida por la sintaxis de las expresiones, mediante reglas. Por ej., el código generado por las reglas E→ E1 + E2 de la fig. 8.15 tiene la forma general:\revaluar E1 en t1;\r\revaluar E2 en t2;\r\rt := t1 + t2"
     },
     {
         "slide":  37,
