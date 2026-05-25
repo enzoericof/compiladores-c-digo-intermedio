@@ -97,12 +97,12 @@
     {
         "slide":  20,
         "name":  "Slide15",
-        "text":  "Declaraciones dentro de un procedimiento | La sintaxis de lenguajes como C, Pascal y Fortran permite que todas  las declaraciones en un solo procedimiento se procesen como un  grupo.\r\rEn este caso, una variable global, por ej desplazamiento, puede  contener la siguiente dirección relativa disponible."
+        "text":  "Declaraciones dentro de un procedimiento | La sintaxis de lenguajes como C, Pascal y Fortran permite que todas las declaraciones en un solo procedimiento se procesen como un grupo. | En este caso, una variable global, por ej desplazamiento, puede contener la siguiente dirección relativa disponible."
     },
     {
         "slide":  21,
         "name":  "Slide16",
-        "text":  "Declaraciones dentro de un procedimiento | Para cada producción tenemos los no terminal\rP(procedimiento), D(declaración), T(tipo).\r\r\rEn T, tenemos los atributos sintetizados T.tipo y\rT.ancho\r\rEn\tP,\tdesplazamiento\tcontiene\tla\tsiguiente  dirección relativa disponible."
+        "text":  "Declaraciones dentro de un procedimiento | Para cada producción tenemos los no terminal P (procedimiento), D (declaración), T (tipo). | En T, tenemos los atributos sintetizados T.tipo y T.ancho. | En P, desplazamiento contiene la siguiente dirección relativa disponible."
     },
     {
         "slide":  22,
@@ -112,7 +112,7 @@
     {
         "slide":  23,
         "name":  "Slide17",
-        "text":  "Registro de información sobre el ámbito | En un lenguaje con procedimientos anidados, se pueden asignar direcciones relativas a los  nombres locales a cada procedimiento utilizando el enfoque de la ﬁgura 8.11.\r\rCuando se encuentre a un procedimiento anidado, se suspende temporalmente el proceso  de las declaraciones del procedimiento abarcador."
+        "text":  "Registro de información sobre el ámbito | En un lenguaje con procedimientos anidados, se pueden asignar direcciones relativas a los nombres locales a cada procedimiento utilizando el enfoque de la figura 8.11. | Cuando se encuentre a un procedimiento anidado, se suspende temporalmente el proceso de las declaraciones del procedimiento abarcador."
     },
     {
         "slide":  24,
@@ -137,12 +137,12 @@
     {
         "slide":  28,
         "name":  "Slide23",
-        "text":  "Registro de información sobre el ámbito | creatabla (previa) crea una nueva tabla de símbolos y devuelve una puntadora la nueva tabla. El argumento previa apunta a una tabla de símbolos creada previamente, se supone que la correspondiente al procedimiento abarcador . El apuntador previa se coloca en un encabezamiento para la nueva tabla de sím bolos, junto con información adicional como la profundidad de anidamiento de un procedimiento.También se pueden numerar los procedimientos en el orden en que se declaran y guardar dicho número en el encabezamiento.\rintroduce(tabla, nombre, tipo, desplazamiento) crea una nueva entrada correspondiente a nombre en la tabla de símbolos apuntada por tabla. Denuevo, introduce coloca el tipo tipo y la dirección relativa desplazamiento en campos dentro de la entrada .\rañadeancho (tabla, ancho) registra el ancho acumulado de todas las entradas de tabla en el encabezamiento asociado con esta tabla de símbolos.\rintroduceproc (tabla, nombre, tablanueva) crea una entrada nueva para el procedimiento nombre dentro de la tabla de símbolos apuntada por tabla. El argumento tablanueva apunta a la tabla de símbolos correspondiente a este procedimiento nombre."
+        "text":  "Registro de información sobre el ámbito | ***creatabla (previa):*** crea una nueva tabla de símbolos y devuelve una puntadora la nueva tabla. El argumento previa apunta a una tabla de símbolos creada previamente, se supone que la correspondiente al procedimiento abarcador. El apuntador previa se coloca en un encabezamiento para la nueva tabla de símbolos, junto con información adicional como la profundidad de anidamiento de un procedimiento. También se pueden numerar los procedimientos en el orden en que se declaran y guardar dicho número en el encabezamiento.\n***introduce(tabla, nombre, tipo, desplazamiento):*** crea una nueva entrada correspondiente a nombre en la tabla de símbolos apuntada por tabla. Denuevo, introduce coloca el tipo tipo y la dirección relativa desplazamiento en campos dentro de la entrada.\n***añadeancho (tabla, ancho):*** registra el ancho acumulado de todas las entradas de tabla en el encabezamiento asociado con esta tabla de símbolos.\n***introduceproc (tabla, nombre, tablanueva):*** crea una entrada nueva para el procedimiento nombre dentro de la tabla de símbolos apuntada por tabla. El argumento tablanueva apunta a la tabla de símbolos correspondiente a este procedimiento nombre."
     },
     {
         "slide":  29,
         "name":  "Slide22",
-        "text":  "Registro de información sobre el ámbito | El esquema de traducción de la figura muestra cómo se  pueden colocar los datos en una pasada.\r\rutilizando la pila tblapn para guardar apuntadores a las  tablas de símbolos de los procedimientos abarcadores.\r\r\rLa otra pila desplazamiento, es la generalización natural a  procedimientos anidados del atributo desplazamiento de la  figura 8.11, es decir, el elemento tope de desplazamiento es  la siguiente dirección relativa disponible para un nombre local  del procedimiento en curso."
+        "text":  "Registro de información sobre el ámbito | El esquema de traducción de la figura muestra cómo se pueden colocar los datos en una pasada. | Utilizando la pila **tblapn** para guardar apuntadores a las tablas de símbolos de los procedimientos abarcadores. | La otra pila **desplazamiento** es la generalización natural a procedimientos anidados del atributo desplazamiento de la figura 8.11, es decir, el elemento tope de desplazamiento es la siguiente dirección relativa disponible para un nombre local del procedimiento en curso."
     },
     {
         "slide":  30,
@@ -152,17 +152,17 @@
     {
         "slide":  31,
         "name":  "Slide25",
-        "text":  "Nombres de campos dentro de registros. | Después de que aparezca la palabra clave record, la acción asociada con el marcador L crea una nueva tabla de símbolos para los nombres de los campos con t := creatabla(nil); luego, con mete(t, tblapn) y mete(0, desplazamiento), se introduce un apuntador en esta tabla de símbolos en la pila tblapn y la dirección relativa 0 se introduce en la pila desplazamiento, respectivamente."
+        "text":  "Nombres de campos dentro de registros. | Después de que aparezca la palabra clave **record**, la acción asociada con el marcador **L** crea una nueva tabla de símbolos para los nombres de los campos con **t := creatabla(nil)**; luego, con **mete(t, tblapn)** y **mete(0, desplazamiento)**, se introduce un apuntador en esta tabla de símbolos en la pila **tblapn** y la dirección relativa 0 se introduce en la pila **desplazamiento**, respectivamente."
     },
     {
         "slide":  32,
         "name":  "Slide26",
-        "text":  "Nombres de campos dentro de registros. | Luego en D, la acción correspondiente D-\u003eid:T de la ﬁgura 8.13 introduce por tanto la información sobre el nombre del  campo id en la tabla de símbolos correspondiente al registro.\rAdemás, el tope de la pila desplazamiento contendrá el ancho de todos los objetos de datos dentro del registro después  que se hayan examinado los campos.\r\rProducción D de la ﬁgura 8.13:"
+        "text":  "Nombres de campos dentro de registros. | Luego en D, la acción correspondiente D-\u003eid:T de la ﬁgura 8.13 introduce por tanto la información sobre el nombre del  campo id en la tabla de símbolos correspondiente al registro. | Además, el tope de la pila desplazamiento contendrá el ancho de todos los objetos de datos dentro del registro después  que se hayan examinado los campos. | Producción D de la ﬁgura 8.13:"
     },
     {
         "slide":  33,
         "name":  "Slide27",
-        "text":  "Nombres de campos dentro de registros. | La acción que sigue en end devuelve este ancho como el atributo sintetizado T.ancho.\rEl tipo T.tipo se obtiene aplicando el constructor record al apuntador a la tabla de símbolos correspondiente a este registro\rrecord(tope(tblapn)."
+        "text":  "Nombres de campos dentro de registros. | La acción que sigue en end devuelve este ancho como el atributo sintetizado T.ancho. | El tipo T.tipo se obtiene aplicando el constructor record al apuntador a la tabla de símbolos correspondiente a este registro: record(tope(tblapn))."
     },
     {
         "slide":  34,
