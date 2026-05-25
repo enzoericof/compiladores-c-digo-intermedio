@@ -14,7 +14,7 @@ function parseSlide(rawText) {
     .filter((group) => group.length > 0);
 
   const flatLines = groups.flat();
-  const title = flatLines.shift() || "Diapositiva sin texto extraíble";
+  const title = flatLines.shift() || "Diapositiva sin texto extraible";
   let badge = "";
 
   if (flatLines[0] && /^\d+\.?$/.test(flatLines[0])) {
@@ -73,10 +73,7 @@ function buildCoverSlide() {
     <div class="slide-shell cover-shell">
       <p class="eyebrow">Materia: Compiladores</p>
       <h2>${parsed.title || "Generación de Código Intermedio"}</h2>
-      <p class="lead">
-        Presentación web construida con el contenido del PPT de referencia y adaptada al estilo de la Exposición 2.
-        Se conservan el orden temático, los conceptos y la secuencia original.
-      </p>
+      <p class="lead">Tema central de la unidad dedicado a la representación intermedia y a su papel dentro del proceso de traducción.</p>
       <div class="presenter-box">
         <p class="slide-note">Autores</p>
         <div class="presenter-list">
@@ -94,20 +91,20 @@ function buildSourceCard(index, title, useImage) {
   aside.className = useImage ? "source-card" : "empty-card";
 
   const heading = document.createElement("h3");
-  heading.textContent = useImage ? "Referencia visual del material original" : "Referencia del PPT original";
+  heading.textContent = useImage ? "Apoyo visual" : "Nota";
   aside.appendChild(heading);
 
   if (useImage) {
     const image = document.createElement("img");
     image.src = getSlideImagePath(index);
-    image.alt = `Referencia visual de la diapositiva ${index}: ${title}`;
+    image.alt = `Figura de apoyo de la diapositiva ${index}: ${title}`;
     aside.appendChild(image);
   }
 
   const paragraph = document.createElement("p");
   paragraph.textContent = useImage
-    ? "La figura se mantiene como apoyo visual para no redibujar diagramas o capturas del libro."
-    : "Abrí la lámina original si querés comparar el contenido exacto del PPT.";
+    ? "Figura de apoyo para acompañar la explicación del concepto."
+    : "Resumen breve del punto tratado en esta lámina.";
   aside.appendChild(paragraph);
 
   return aside;
@@ -126,7 +123,6 @@ function buildContentSlide(entry, index) {
   head.className = "slide-head";
   head.innerHTML = `
     <span class="slide-number">${String(index + 1).padStart(2, "0")}</span>
-    <a class="ref-link" href="${getSlideImagePath(index + 1)}" target="_blank" rel="noreferrer">Ver diapositiva original</a>
   `;
 
   const heading = document.createElement("div");
@@ -161,8 +157,8 @@ function buildContentSlide(entry, index) {
     const empty = document.createElement("article");
     empty.className = "card";
     empty.innerHTML = `
-      <h3>Contenido gráfico o mínimo</h3>
-      <p>Esta lámina depende sobre todo de la composición visual del material original. Se deja la referencia al PPT para conservar figuras o diagramas sin copiarlos con CSS.</p>
+      <h3>Idea principal</h3>
+      <p>Esta lámina se apoya principalmente en una figura o en una composición breve para reforzar la explicación oral.</p>
     `;
     contentMain.appendChild(empty);
     contentSide.appendChild(buildSourceCard(index + 1, parsed.title, true));
