@@ -27,7 +27,7 @@
     {
         "slide":  6,
         "name":  "Slide94",
-        "text":  "Representaciones Gráficas | En notación postfija: a b c menos-unario * b c menos-unario * + asigna | El árbol sintáctico muestra la estructura jerárquica natural de un programa fuente. | El GDA conserva la misma información, pero de forma más compacta porque identifica subexpresiones comunes."
+        "text":  "Representaciones Gráficas | En notación postfija: a ( b ( -c ) * ) ( b ( -c ) * ) + asigna | El árbol sintáctico muestra la estructura jerárquica natural de un programa fuente. | El GDA conserva la misma información, pero de forma más compacta porque identifica subexpresiones comunes."
     },
     {
         "slide":  7,
