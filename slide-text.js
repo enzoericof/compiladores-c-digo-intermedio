@@ -42,7 +42,7 @@
     {
         "slide":  9,
         "name":  "Slide8",
-        "text":  "Código de tres direcciones | Secuencia de proposiciones de la forma general:\r\rx\t= y op z\rPara expresiones compuestas(x+y*z):\r\rt1\t= y * z  \rt2\t= x + t1 | Variables temporales"
+        "text":  "Código de tres direcciones | Secuencia de proposiciones de la forma general:\r\rx\t= y op z;\rPara expresiones compuestas (x+y*z):\r\rt1\t= y * z;\r\rt2\t= x + t1 | Variables temporales"
     },
     {
         "slide":  10,
