@@ -341,6 +341,7 @@ function buildContentSlide(entry, index) {
 
   const contentMain = document.createElement("div");
   contentMain.className = "content-main";
+  const hasTextGroups = parsed.groups.length > 0;
 
   parsed.groups.forEach((group, groupIndex) => {
     const cardTitle = inferCardTitle(group, groupIndex);
@@ -351,10 +352,15 @@ function buildContentSlide(entry, index) {
   if (!visualCard) {
     contentGrid.classList.add("content-grid-single");
   }
+  if (!hasTextGroups && visualCard) {
+    contentGrid.classList.add("content-grid-media-only");
+  }
 
   shell.appendChild(head);
   shell.appendChild(heading);
-  contentGrid.appendChild(contentMain);
+  if (hasTextGroups) {
+    contentGrid.appendChild(contentMain);
+  }
 
   if (visualCard) {
     const contentSide = document.createElement("div");
