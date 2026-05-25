@@ -114,6 +114,11 @@ function createCard(title, lines) {
   heading.textContent = title;
   article.appendChild(heading);
 
+  if (lines.length === 0) {
+    article.classList.add("card-title-only");
+    return article;
+  }
+
   if (lines.length === 1) {
     const paragraph = document.createElement("p");
     paragraph.textContent = lines[0];
@@ -405,8 +410,16 @@ function buildContentSlide(entry, index) {
   const contentMain = document.createElement("div");
   contentMain.className = "content-main";
   const hasTextGroups = parsed.groups.length > 0;
+  const useGroupAsCardTitle =
+    parsed.groups.length > 1 &&
+    parsed.groups.every((group) => group.length === 1 && group[0].length <= 32);
 
   parsed.groups.forEach((group, groupIndex) => {
+    if (useGroupAsCardTitle) {
+      contentMain.appendChild(createCard(group[0], []));
+      return;
+    }
+
     const cardTitle = inferCardTitle(group, groupIndex);
     contentMain.appendChild(createCard(cardTitle, group));
   });
