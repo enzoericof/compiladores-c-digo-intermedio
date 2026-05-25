@@ -332,7 +332,15 @@ function buildContentSlide(entry, index) {
 
   if (parsed.title) {
     const title = document.createElement("h2");
-    title.textContent = parsed.title;
+    if (slideNumber === 5) {
+      const titleLink = document.createElement("a");
+      titleLink.className = "slide-title-link";
+      titleLink.href = "#slide-9";
+      titleLink.textContent = parsed.title;
+      title.appendChild(titleLink);
+    } else {
+      title.textContent = parsed.title;
+    }
     heading.appendChild(title);
   }
 
