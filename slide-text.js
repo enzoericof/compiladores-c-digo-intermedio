@@ -17,7 +17,7 @@
     {
         "slide":  4,
         "name":  "Slide4",
-        "text":  "Lenguaje Intermedio | 01 | x | y"
+        "text":  "Lenguajes Intermedios | 01 | x | y"
     },
     {
         "slide":  5,
