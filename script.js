@@ -24,7 +24,7 @@ function parseSlide(rawText) {
     .filter((group) => group.length > 0);
 
   const flatLines = groups.flat();
-  const title = flatLines.shift() || "Diapositiva sin texto extraíble";
+  const title = flatLines.shift() || "";
   let badge = "";
 
   if (flatLines[0] && /^\d+\.?$/.test(flatLines[0])) {
@@ -186,9 +186,11 @@ function buildContentSlide(entry, index) {
     heading.appendChild(eyebrow);
   }
 
-  const title = document.createElement("h2");
-  title.textContent = parsed.title;
-  heading.appendChild(title);
+  if (parsed.title) {
+    const title = document.createElement("h2");
+    title.textContent = parsed.title;
+    heading.appendChild(title);
+  }
 
   const contentGrid = document.createElement("div");
   contentGrid.className = "content-grid";
