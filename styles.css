@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg: #f0f6fd;
   --bg-deep: #dfeaf7;
   --surface: rgba(255, 255, 255, 0.92);
@@ -258,12 +258,7 @@ a {
   font-size: clamp(1.9rem, 3vw, 3.2rem);
 }
 
-.content-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
-  gap: 1rem;
-  align-items: start;
-}
+.content-grid {`r`n  display: grid;`r`n  grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);`r`n  gap: 1rem;`r`n  align-items: start;`r`n}`r`n`r`n.content-grid-single {`r`n  grid-template-columns: 1fr;`r`n}
 
 .content-main,
 .content-side {
@@ -397,3 +392,4 @@ a {
     gap: 0.7rem;
   }
 }
+

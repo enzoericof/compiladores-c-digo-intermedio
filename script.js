@@ -126,13 +126,7 @@ function buildVisualCard(slideNumber, title) {
   const files = getManifestImages(slideNumber);
 
   if (files.length === 0) {
-    const aside = document.createElement("aside");
-    aside.className = "empty-card";
-    aside.innerHTML = `
-      <h3>Nota</h3>
-      <p>Resumen breve del punto tratado en esta lámina.</p>
-    `;
-    return aside;
+    return null;
   }
 
   const aside = document.createElement("aside");
@@ -202,9 +196,6 @@ function buildContentSlide(entry, index) {
   const contentMain = document.createElement("div");
   contentMain.className = "content-main";
 
-  const contentSide = document.createElement("div");
-  contentSide.className = "content-side";
-
   if (parsed.groups.length <= 1 && parsed.flatLines.length <= 1) {
     const empty = document.createElement("article");
     empty.className = "card";
@@ -220,12 +211,22 @@ function buildContentSlide(entry, index) {
     });
   }
 
-  contentSide.appendChild(buildVisualCard(slideNumber, parsed.title));
+  const visualCard = buildVisualCard(slideNumber, parsed.title);
+  if (!visualCard) {
+    contentGrid.classList.add("content-grid-single");
+  }
 
   shell.appendChild(head);
   shell.appendChild(heading);
   contentGrid.appendChild(contentMain);
-  contentGrid.appendChild(contentSide);
+
+  if (visualCard) {
+    const contentSide = document.createElement("div");
+    contentSide.className = "content-side";
+    contentSide.appendChild(visualCard);
+    contentGrid.appendChild(contentSide);
+  }
+
   shell.appendChild(contentGrid);
   section.appendChild(shell);
   return section;
