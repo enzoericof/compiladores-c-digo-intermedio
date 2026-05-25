@@ -196,20 +196,10 @@ function buildContentSlide(entry, index) {
   const contentMain = document.createElement("div");
   contentMain.className = "content-main";
 
-  if (parsed.groups.length <= 1 && parsed.flatLines.length <= 1) {
-    const empty = document.createElement("article");
-    empty.className = "card";
-    empty.innerHTML = `
-      <h3>Idea principal</h3>
-      <p>Esta lámina se apoya principalmente en una figura o en una composición breve para reforzar la explicación oral.</p>
-    `;
-    contentMain.appendChild(empty);
-  } else {
-    parsed.groups.forEach((group, groupIndex) => {
-      const cardTitle = groupIndex === 0 ? "Contenido" : `Detalle ${groupIndex + 1}`;
-      contentMain.appendChild(createCard(cardTitle, group));
-    });
-  }
+  parsed.groups.forEach((group, groupIndex) => {
+    const cardTitle = groupIndex === 0 ? "Contenido" : `Detalle ${groupIndex + 1}`;
+    contentMain.appendChild(createCard(cardTitle, group));
+  });
 
   const visualCard = buildVisualCard(slideNumber, parsed.title);
   if (!visualCard) {
