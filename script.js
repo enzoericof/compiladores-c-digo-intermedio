@@ -15,7 +15,7 @@ function parseSlide(rawText) {
     .filter((group) => group.length > 0);
 
   const flatLines = groups.flat();
-  const title = flatLines.shift() || "Diapositiva sin texto extraible";
+  const title = flatLines.shift() || "Diapositiva sin texto extraíble";
   let badge = "";
 
   if (flatLines[0] && /^\d+\.?$/.test(flatLines[0])) {
@@ -77,8 +77,8 @@ function buildCoverSlide() {
   section.innerHTML = `
     <div class="slide-shell cover-shell">
       <p class="eyebrow">Materia: Compiladores</p>
-      <h2>${parsed.title || "Generacion de Codigo Intermedio"}</h2>
-      <p class="lead">Tema central de la unidad dedicado a la representacion intermedia y a su papel dentro del proceso de traduccion.</p>
+      <h2>${parsed.title || "Generación de Código Intermedio"}</h2>
+      <p class="lead">Tema central de la unidad dedicado a la representación intermedia y a su papel dentro del proceso de traducción.</p>
       <div class="presenter-box">
         <p class="slide-note">Autores</p>
         <div class="presenter-list">
@@ -99,7 +99,7 @@ function buildVisualCard(slideNumber, title) {
     aside.className = "empty-card";
     aside.innerHTML = `
       <h3>Nota</h3>
-      <p>Resumen breve del punto tratado en esta lamina.</p>
+      <p>Resumen breve del punto tratado en esta lámina.</p>
     `;
     return aside;
   }
@@ -124,7 +124,7 @@ function buildVisualCard(slideNumber, title) {
   aside.appendChild(gallery);
 
   const paragraph = document.createElement("p");
-  paragraph.textContent = "Figura de apoyo para acompanar la explicacion del concepto.";
+  paragraph.textContent = "Figura de apoyo para acompañar la explicación del concepto.";
   aside.appendChild(paragraph);
 
   return aside;
@@ -179,7 +179,7 @@ function buildContentSlide(entry, index) {
     empty.className = "card";
     empty.innerHTML = `
       <h3>Idea principal</h3>
-      <p>Esta lamina se apoya principalmente en una figura o en una composicion breve para reforzar la explicacion oral.</p>
+      <p>Esta lámina se apoya principalmente en una figura o en una composición breve para reforzar la explicación oral.</p>
     `;
     contentMain.appendChild(empty);
   } else {
