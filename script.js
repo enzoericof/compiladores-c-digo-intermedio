@@ -136,9 +136,14 @@ function buildWhyIntermediateSlide() {
   const shell = document.createElement("div");
   shell.className = "slide-shell why-shell";
 
-  const eyebrow = document.createElement("p");
-  eyebrow.className = "eyebrow";
-  eyebrow.textContent = "Diapositiva 3";
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">03</span>
+      <span class="slide-label">Diapositiva 3</span>
+    </div>
+  `;
 
   const title = document.createElement("h2");
   title.className = "why-title";
@@ -153,7 +158,7 @@ function buildWhyIntermediateSlide() {
     list.appendChild(li);
   });
 
-  shell.appendChild(eyebrow);
+  shell.appendChild(head);
   shell.appendChild(title);
   shell.appendChild(list);
 
@@ -255,7 +260,10 @@ function buildContentSlide(entry, index) {
   const head = document.createElement("div");
   head.className = "slide-head";
   head.innerHTML = `
-    <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
   `;
 
   const heading = document.createElement("div");
@@ -265,11 +273,6 @@ function buildContentSlide(entry, index) {
     const eyebrow = document.createElement("p");
     eyebrow.className = "eyebrow";
     eyebrow.textContent = `Bloque ${parsed.badge}`;
-    heading.appendChild(eyebrow);
-  } else {
-    const eyebrow = document.createElement("p");
-    eyebrow.className = "eyebrow";
-    eyebrow.textContent = `Diapositiva ${slideNumber}`;
     heading.appendChild(eyebrow);
   }
 

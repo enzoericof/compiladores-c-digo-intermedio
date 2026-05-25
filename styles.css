@@ -296,6 +296,13 @@ a {
   gap: 1rem;
 }
 
+.slide-head-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
 .slide-number {
   display: inline-flex;
   align-items: center;
@@ -306,6 +313,14 @@ a {
   background: rgba(47, 103, 199, 0.1);
   color: var(--blue-deep);
   font-weight: 800;
+}
+
+.slide-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .section-heading {
