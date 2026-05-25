@@ -1,5 +1,5 @@
 window.slideImages = {
-  1: ["Imagen1.jpg"],
+  3: ["3.jpg"],
   6: ["slide 6.jpg"],
   7: ["slide 7.jpg"],
   8: ["8.jpg", "slide 8.jpg"],
