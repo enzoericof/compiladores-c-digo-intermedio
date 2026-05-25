@@ -240,6 +240,10 @@ function buildWhyIntermediateSlide() {
 }
 
 function buildVisualCard(slideNumber, title) {
+  if (slideNumber === 15) {
+    return null;
+  }
+
   const files = getManifestImages(slideNumber);
 
   if (files.length === 0) {
