@@ -259,6 +259,59 @@ a {
   background: white;
 }
 
+.types-shell {
+  align-content: start;
+  gap: 1.8rem;
+  padding: clamp(2.2rem, 4vw, 3rem) clamp(2rem, 4vw, 3.2rem);
+  background: rgba(255, 255, 255, 0.99);
+}
+
+.types-title {
+  margin: 2.5rem auto 0;
+  text-align: center;
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+  color: #111317;
+}
+
+.types-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.types-row {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(17rem, 29rem) minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 1.2rem;
+}
+
+.types-index,
+.types-code,
+.types-detail {
+  color: #111317;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.types-index {
+  font-size: clamp(1.8rem, 2.7vw, 3rem);
+  font-weight: 700;
+}
+
+.types-code {
+  font-size: clamp(1.8rem, 2.8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.types-detail {
+  font-size: clamp(1rem, 1.85vw, 1.7rem);
+  line-height: 1.45;
+}
+
 .lead {
   max-width: 60rem;
   margin-inline: auto;
@@ -450,6 +503,10 @@ a {
     width: min(420px, 100%);
     margin-inline: auto;
   }
+
+  .types-row {
+    grid-template-columns: 3rem minmax(13rem, 20rem) minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 720px) {
@@ -506,5 +563,25 @@ a {
 
   .section-divider-copy h2 {
     font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .types-title {
+    margin-top: 1rem;
+    font-size: clamp(1.8rem, 9vw, 2.7rem);
+  }
+
+  .types-row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .types-index,
+  .types-code,
+  .types-detail {
+    font-size: 1rem;
+  }
+
+  .types-code {
+    font-size: 1.35rem;
   }
 }

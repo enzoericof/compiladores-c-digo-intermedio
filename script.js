@@ -301,6 +301,61 @@ function buildSectionDividerSlide(entry, slideNumber) {
   return section;
 }
 
+function buildThreeAddressTypesSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const items = [
+    ["x = y op z", "Operación binaria"],
+    ["x = op y", "Operación unaria"],
+    ["x = y", "Proposiciones de copia"],
+    ["goto E", "Salto incondicional, se ejecuta la proposición con etiqueta E"],
+    ["if x oprel y goto E", "Salto condicional, si x pone oprel en relación con y"],
+    ["param x y call p,n", "Secuencia de prop. de 3 direcciones para llamadas a proc."],
+    ["x = y [i] ; x [i] = y", "i unidades de memoria más allá de la posición"],
+    ["x := &y", "Asignación de direcciones"]
+  ];
+
+  const section = document.createElement("section");
+  section.className = "slide slide-types";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell types-shell";
+
+  const title = document.createElement("h2");
+  title.className = "types-title";
+  title.innerHTML = "TIPOS DE PROPOSICIONES DE TRES<br>DIRECCIONES";
+  shell.appendChild(title);
+
+  const list = document.createElement("div");
+  list.className = "types-list";
+
+  items.forEach(([statement, description], index) => {
+    const row = document.createElement("div");
+    row.className = "types-row";
+
+    const number = document.createElement("span");
+    number.className = "types-index";
+    number.textContent = `${index + 1}.`;
+
+    const code = document.createElement("span");
+    code.className = "types-code";
+    code.textContent = statement;
+
+    const detail = document.createElement("span");
+    detail.className = "types-detail";
+    detail.textContent = description;
+
+    row.appendChild(number);
+    row.appendChild(code);
+    row.appendChild(detail);
+    list.appendChild(row);
+  });
+
+  shell.appendChild(list);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildContentSlide(entry, index) {
   const slideNumber = index + 1;
   const parsed = parseSlide(entry.text);
@@ -392,6 +447,11 @@ function renderDeck() {
 
     if (sectionDividerSlides.has(slideNumber)) {
       deck.appendChild(buildSectionDividerSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 12) {
+      deck.appendChild(buildThreeAddressTypesSlide(entry, slideNumber));
       return;
     }
 
