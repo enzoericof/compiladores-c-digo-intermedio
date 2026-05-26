@@ -867,6 +867,81 @@ function buildTempReuseSolutionSlide(entry, slideNumber) {
   return section;
 }
 
+function buildMatrixAccessGrammarSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-matrix-grammar";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell matrix-grammar-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>${parsed.title}</h2>`;
+
+  const stack = document.createElement("div");
+  stack.className = "matrix-grammar-stack";
+
+  const keyIdea = document.createElement("article");
+  keyIdea.className = "card";
+  keyIdea.innerHTML = `
+    <h3>Idea clave</h3>
+    <p>El compilador debe distinguir entre una variable simple y un elemento de matriz.</p>
+  `;
+
+  const examples = document.createElement("article");
+  examples.className = "card";
+  examples.innerHTML = `
+    <h3>Ejemplos</h3>
+    <div class="matrix-grammar-code">
+      <p>x := 10        → x es una variable simple</p>
+      <p>A[i] := 10     → A[i] es un elemento de matriz</p>
+      <p>A[i,j] := 10   → A[i,j] usa dos índices</p>
+    </div>
+  `;
+
+  const grammar = document.createElement("article");
+  grammar.className = "card";
+  grammar.innerHTML = `
+    <h3>Uso de la gramática</h3>
+    <div class="matrix-grammar-code">
+      <p>L → id          variable simple</p>
+      <p>L → listaE ]    referencia a matriz</p>
+      <p>listaE → id [ E primer índice</p>
+      <p>listaE → listaE , E índice adicional</p>
+    </div>
+  `;
+
+  const conclusion = document.createElement("article");
+  conclusion.className = "card";
+  conclusion.innerHTML = `
+    <h3>Conclusión</h3>
+    <p>listaE sirve para juntar los índices de la matriz y calcular su desplazamiento en memoria.</p>
+    <p class="matrix-grammar-oral">Esta parte introduce una gramática para que el compilador pueda reconocer referencias a matrices. L representa el lado izquierdo de una asignación, que puede ser una variable simple como x o una posición de matriz como A[i]. listaE representa la lista de índices, por ejemplo i, i,j o i,j,k. Con esa información el compilador puede calcular el desplazamiento real en memoria.</p>
+  `;
+
+  stack.appendChild(keyIdea);
+  stack.appendChild(examples);
+  stack.appendChild(grammar);
+  stack.appendChild(conclusion);
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+  shell.appendChild(stack);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildInterleavedSlide(entry, slideNumber, sourceSlideNumber, layout) {
   const parsed = parseSlide(entry.text);
   const files = getManifestImages(sourceSlideNumber);
@@ -1109,6 +1184,12 @@ function renderDeck() {
 
     if (sourceSlideNumber === 37) {
       deck.appendChild(buildTempReuseSolutionSlide(entry, slideNumber));
+      slideNumber += 1;
+      return;
+    }
+
+    if (sourceSlideNumber === 40) {
+      deck.appendChild(buildMatrixAccessGrammarSlide(entry, slideNumber));
       slideNumber += 1;
       return;
     }

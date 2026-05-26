@@ -514,6 +514,36 @@ a {
   margin-top: 0.35rem;
 }
 
+.matrix-grammar-shell {
+  align-content: start;
+  gap: 1.2rem;
+}
+
+.matrix-grammar-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.matrix-grammar-code p,
+.matrix-grammar-oral {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.matrix-grammar-code {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.matrix-grammar-oral {
+  margin-top: 0.85rem;
+  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
 .section-divider-shell {
   position: relative;
   align-content: center;
