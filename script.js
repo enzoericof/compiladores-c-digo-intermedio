@@ -16,6 +16,7 @@ const whyIntermediateItems = [
   "Se facilita la redestinación; se puede crear un compilador para una máquina distinta uniendo una etapa final para la nueva máquina a una etapa inicial ya existente.",
   "Se puede aplicar a la representación intermedia un optimizador de código independiente de la máquina."
 ];
+const removedSourceSlides = new Set([39]);
 const sectionDividerSlides = new Set([4, 19, 34, 50, 69, 75, 91]);
 const plainTextSlides = new Set([20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]);
 const interleavedLayouts = {
@@ -336,12 +337,12 @@ function buildRepresentationOverviewSlide(entry, slideNumber) {
   return section;
 }
 
-function buildVisualCard(slideNumber, title) {
-  if (slideNumber === 15) {
+function buildVisualCard(slideNumber, sourceSlideNumber, title) {
+  if (sourceSlideNumber === 15) {
     return null;
   }
 
-  const files = getManifestImages(slideNumber);
+  const files = getManifestImages(sourceSlideNumber);
 
   if (files.length === 0) {
     return null;
@@ -350,7 +351,7 @@ function buildVisualCard(slideNumber, title) {
   const aside = document.createElement("aside");
   aside.className = "source-card";
 
-  if (!plainTextSlides.has(slideNumber)) {
+  if (!plainTextSlides.has(sourceSlideNumber)) {
     const heading = document.createElement("h3");
     heading.textContent = files.length > 1 ? "Figuras del tema" : "Figura del tema";
     aside.appendChild(heading);
@@ -373,10 +374,10 @@ function buildVisualCard(slideNumber, title) {
   return aside;
 }
 
-function buildSectionDividerSlide(entry, slideNumber) {
+function buildSectionDividerSlide(entry, slideNumber, sourceSlideNumber) {
   const parsed = parseSlide(entry.text);
   const badge = parsed.groups[0]?.[0] || parsed.badge || String(Math.ceil(slideNumber / 10)).padStart(2, "0");
-  const files = getManifestImages(slideNumber);
+  const files = getManifestImages(sourceSlideNumber);
 
   const section = document.createElement("section");
   section.className = "slide section-divider-slide";
@@ -866,9 +867,9 @@ function buildTempReuseSolutionSlide(entry, slideNumber) {
   return section;
 }
 
-function buildInterleavedSlide(entry, slideNumber, layout) {
+function buildInterleavedSlide(entry, slideNumber, sourceSlideNumber, layout) {
   const parsed = parseSlide(entry.text);
-  const files = getManifestImages(slideNumber);
+  const files = getManifestImages(sourceSlideNumber);
 
   const section = document.createElement("section");
   section.className = "slide slide-plain slide-interleaved";
@@ -966,12 +967,11 @@ function buildInterleavedSlide(entry, slideNumber, layout) {
   return section;
 }
 
-function buildContentSlide(entry, index) {
-  const slideNumber = index + 1;
+function buildContentSlide(entry, slideNumber, sourceSlideNumber) {
   const parsed = parseSlide(entry.text);
   const section = document.createElement("section");
-  const plainClass = plainTextSlides.has(slideNumber) ? " slide-plain" : "";
-  section.className = `slide ${variants[index % variants.length]}${plainClass}`;
+  const plainClass = plainTextSlides.has(sourceSlideNumber) ? " slide-plain" : "";
+  section.className = `slide ${variants[(slideNumber - 1) % variants.length]}${plainClass}`;
   section.id = `slide-${slideNumber}`;
 
   const shell = document.createElement("div");
@@ -1020,7 +1020,7 @@ function buildContentSlide(entry, index) {
     parsed.groups.length > 1 &&
     parsed.groups.every((group) => group.length === 1 && group[0].length <= 32);
 
-  const suppressLabels = plainTextSlides.has(slideNumber);
+  const suppressLabels = plainTextSlides.has(sourceSlideNumber);
 
   parsed.groups.forEach((group, groupIndex) => {
     if (useGroupAsCardTitle) {
@@ -1032,7 +1032,7 @@ function buildContentSlide(entry, index) {
     contentMain.appendChild(createCard(cardTitle, group));
   });
 
-  const visualCard = buildVisualCard(slideNumber, parsed.title);
+  const visualCard = buildVisualCard(slideNumber, sourceSlideNumber, parsed.title);
   if (!visualCard) {
     contentGrid.classList.add("content-grid-single");
   }
@@ -1063,55 +1063,70 @@ function renderDeck() {
   deck.appendChild(buildAgendaSlide());
   deck.appendChild(buildWhyIntermediateSlide());
 
-  slideMetadata.slice(3).forEach((entry, index) => {
-    const slideNumber = index + 4;
+  let slideNumber = 4;
+  slideMetadata.slice(3).forEach((entry) => {
+    const sourceSlideNumber = entry.slide ?? slideNumber;
 
-    if (sectionDividerSlides.has(slideNumber)) {
-      deck.appendChild(buildSectionDividerSlide(entry, slideNumber));
+    if (removedSourceSlides.has(sourceSlideNumber)) {
       return;
     }
 
-    if (slideNumber === 5) {
+    if (sectionDividerSlides.has(sourceSlideNumber)) {
+      deck.appendChild(buildSectionDividerSlide(entry, slideNumber, sourceSlideNumber));
+      slideNumber += 1;
+      return;
+    }
+
+    if (sourceSlideNumber === 5) {
       deck.appendChild(buildRepresentationOverviewSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (slideNumber === 9) {
+    if (sourceSlideNumber === 9) {
       deck.appendChild(buildThreeAddressIntroSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (slideNumber === 13) {
+    if (sourceSlideNumber === 13) {
       deck.appendChild(buildSyntaxDirectedTranslationSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (slideNumber === 17) {
+    if (sourceSlideNumber === 17) {
       deck.appendChild(buildTriplesSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (slideNumber === 36) {
+    if (sourceSlideNumber === 36) {
       deck.appendChild(buildTempReuseProblemSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (slideNumber === 37) {
+    if (sourceSlideNumber === 37) {
       deck.appendChild(buildTempReuseSolutionSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (slideNumber === 12) {
+    if (sourceSlideNumber === 12) {
       deck.appendChild(buildThreeAddressTypesSlide(entry, slideNumber));
+      slideNumber += 1;
       return;
     }
 
-    if (interleavedLayouts[slideNumber]) {
-      deck.appendChild(buildInterleavedSlide(entry, slideNumber, interleavedLayouts[slideNumber]));
+    if (interleavedLayouts[sourceSlideNumber]) {
+      deck.appendChild(buildInterleavedSlide(entry, slideNumber, sourceSlideNumber, interleavedLayouts[sourceSlideNumber]));
+      slideNumber += 1;
       return;
     }
 
-    deck.appendChild(buildContentSlide(entry, index + 3));
+    deck.appendChild(buildContentSlide(entry, slideNumber, sourceSlideNumber));
+    slideNumber += 1;
   });
 }
 
