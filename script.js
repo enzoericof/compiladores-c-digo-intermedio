@@ -35,7 +35,7 @@ function normalizeLine(line) {
 function parseSlide(rawText) {
   const groups = String(rawText || "")
     .split("|")
-    .map((group) => group.split(/\r?\n/).map(normalizeLine).filter(Boolean))
+    .map((group) => group.split(/\r\n|\r|\n/).map(normalizeLine).filter(Boolean))
     .filter((group) => group.length > 0);
 
   const flatLines = groups.flat();
