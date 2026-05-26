@@ -202,7 +202,7 @@
     {
         "slide":  41,
         "name":  "Slide35",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices | S → L\t:= E\rE → E + E\r3. E → (E)\rE → L\rL → listaE]\rL → id\rlistaE → listaE,E\rlistaE → id [E"
+        "text":  "Esquema de traducción para acceder a elementos  de matrices | S → L\t:= E\rE → E + E\rE → (E)\rE → L\rL → listaE]\rL → id\rlistaE → listaE,E\rlistaE → id [E"
     },
     {
         "slide":  42,
