@@ -333,9 +333,10 @@ a {
 
 .three-address-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   gap: 1rem;
   align-items: start;
+  width: 100%;
 }
 
 .three-address-layout .card {
