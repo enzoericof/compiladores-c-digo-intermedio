@@ -852,7 +852,7 @@ function buildTempReuseSolutionSlide(entry, slideNumber) {
   const speech = document.createElement("article");
   speech.className = "card";
   speech.innerHTML = `
-    <h3>Frase para exposición</h3>
+    <h3>Resumen</h3>
     <p>La reutilización de temporales busca evitar crear un nombre nuevo para cada resultado intermedio. Cuando un temporal ya fue usado y su valor no se necesita más, el compilador puede reciclar ese nombre para guardar otro resultado.</p>
   `;
 
