@@ -326,6 +326,44 @@ a {
   box-shadow: 0 18px 30px rgba(127, 29, 29, 0.24);
 }
 
+.three-address-shell {
+  align-content: start;
+  gap: 1.6rem;
+}
+
+.three-address-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.three-address-layout .card {
+  padding: 1.25rem 1.35rem;
+}
+
+.three-address-form {
+  background: linear-gradient(180deg, rgba(247, 250, 255, 0.98), rgba(255, 255, 255, 0.98));
+}
+
+.three-address-expression {
+  margin-top: 0.35rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(1.4rem, 2.8vw, 2.3rem);
+  font-weight: 700;
+  color: #111317;
+}
+
+.three-address-legend {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.three-address-legend p {
+  line-height: 1.45;
+}
+
 .section-divider-shell {
   position: relative;
   align-content: center;
@@ -787,6 +825,10 @@ a {
   }
 
   .representation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .three-address-layout {
     grid-template-columns: 1fr;
   }
 }

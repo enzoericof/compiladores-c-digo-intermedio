@@ -475,6 +475,77 @@ function buildThreeAddressTypesSlide(entry, slideNumber) {
   return section;
 }
 
+function buildThreeAddressIntroSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-three-address-intro";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell three-address-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>${parsed.title}</h2>`;
+
+  const layout = document.createElement("div");
+  layout.className = "three-address-layout";
+
+  const definition = document.createElement("article");
+  definition.className = "card";
+  definition.innerHTML = `
+    <h3>Definición</h3>
+    <p>${parsed.groups[0]?.join(" ") || ""}</p>
+  `;
+
+  const form = document.createElement("article");
+  form.className = "card three-address-form";
+  form.innerHTML = `
+    <h3>Forma general</h3>
+    <p class="three-address-expression">x := y op z</p>
+    <div class="three-address-legend">
+      <p><strong>x</strong>: lugar donde se guarda el resultado</p>
+      <p><strong>y</strong>: primer operando</p>
+      <p><strong>z</strong>: segundo operando</p>
+      <p><strong>op</strong>: operador</p>
+    </div>
+  `;
+
+  const temporals = document.createElement("article");
+  temporals.className = "card";
+  temporals.innerHTML = `
+    <h3>Variables temporales</h3>
+    <p>${parsed.groups[2]?.join(" ") || ""}</p>
+  `;
+
+  const why = document.createElement("article");
+  why.className = "card";
+  why.innerHTML = `
+    <h3>Nombre</h3>
+    <p>${parsed.groups[3]?.join(" ") || ""}</p>
+  `;
+
+  layout.appendChild(definition);
+  layout.appendChild(form);
+  layout.appendChild(temporals);
+  layout.appendChild(why);
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+  shell.appendChild(layout);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildInterleavedSlide(entry, slideNumber, layout) {
   const parsed = parseSlide(entry.text);
   const files = getManifestImages(slideNumber);
@@ -682,6 +753,11 @@ function renderDeck() {
 
     if (slideNumber === 5) {
       deck.appendChild(buildRepresentationOverviewSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 9) {
+      deck.appendChild(buildThreeAddressIntroSlide(entry, slideNumber));
       return;
     }
 

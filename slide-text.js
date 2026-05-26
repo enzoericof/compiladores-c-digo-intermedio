@@ -42,7 +42,7 @@
     {
         "slide":  9,
         "name":  "Slide8",
-        "text":  "Código de tres direcciones | El código de tres direcciones es una representación intermedia formada por instrucciones simples. Cada instrucción realiza, en general, una sola operación. No se admite una expresión aritmética compuesta completa, porque en el lado derecho de cada proposición solo aparece un operador. | Forma general:\r\rx := y op z\r\rDonde:\r\rx = lugar donde se guarda el resultado\r\ry = primer operando\r\rz = segundo operando\r\rop = operador | ¿Por qué se llama de tres direcciones?\r\rSe llama así porque, normalmente, cada instrucción maneja tres direcciones."
+        "text":  "Código de tres direcciones | El código de tres direcciones es una representación intermedia formada por instrucciones simples. Cada instrucción realiza, en general, una sola operación. No se admite una expresión aritmética compuesta completa, porque en el lado derecho de cada proposición solo aparece un operador. | Forma general:\r\rx := y op z\r\rDonde:\r\rx = lugar donde se guarda el resultado\r\ry = primer operando\r\rz = segundo operando\r\rop = operador | Variables temporales:\r\rCuando una expresión es más compleja, se crean variables temporales para guardar resultados parciales y descomponerla en pasos simples. | ¿Por qué se llama de tres direcciones?\r\rSe llama así porque, normalmente, cada instrucción maneja tres direcciones."
     },
     {
         "slide":  10,
