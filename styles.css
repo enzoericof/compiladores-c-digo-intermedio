@@ -484,6 +484,36 @@ a {
   margin-top: 0.8rem;
 }
 
+.temp-reuse-shell {
+  align-content: start;
+  gap: 1.2rem;
+}
+
+.temp-reuse-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.temp-reuse-expression,
+.temp-reuse-code p {
+  font-family: "Courier New", Courier, monospace;
+  color: #111317;
+}
+
+.temp-reuse-expression {
+  margin-top: 0.7rem;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-weight: 700;
+}
+
+.temp-reuse-code {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
 .section-divider-shell {
   position: relative;
   align-content: center;

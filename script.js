@@ -735,6 +735,137 @@ function buildTriplesSlide(entry, slideNumber) {
   return section;
 }
 
+function buildTempReuseProblemSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-temp-reuse";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell temp-reuse-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>${parsed.title}</h2>`;
+
+  const stack = document.createElement("div");
+  stack.className = "temp-reuse-stack";
+
+  const problem = document.createElement("article");
+  problem.className = "card";
+  problem.innerHTML = `
+    <h3>Problema</h3>
+    <p>Cuando se genera código de tres direcciones, cada operación puede crear un temporal nuevo.</p>
+    <p class="temp-reuse-expression">x := a*b + c*d - e*f</p>
+  `;
+
+  const withoutReuse = document.createElement("article");
+  withoutReuse.className = "card";
+  withoutReuse.innerHTML = `
+    <h3>Sin reutilización</h3>
+    <div class="temp-reuse-code">
+      <p>t1 := a * b</p>
+      <p>t2 := c * d</p>
+      <p>t3 := t1 + t2</p>
+      <p>t4 := e * f</p>
+      <p>t5 := t3 - t4</p>
+      <p>x  := t5</p>
+    </div>
+    <p>Se crean muchos temporales.</p>
+  `;
+
+  const keyIdea = document.createElement("article");
+  keyIdea.className = "card";
+  keyIdea.innerHTML = `
+    <h3>Idea clave</h3>
+    <p>Un temporal puede reutilizarse cuando su valor ya no será necesario.</p>
+  `;
+
+  stack.appendChild(problem);
+  stack.appendChild(withoutReuse);
+  stack.appendChild(keyIdea);
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+  shell.appendChild(stack);
+  section.appendChild(shell);
+  return section;
+}
+
+function buildTempReuseSolutionSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-temp-reuse";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell temp-reuse-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>Ejemplo - Reutilización de nombres temporales</h2>`;
+
+  const stack = document.createElement("div");
+  stack.className = "temp-reuse-stack";
+
+  const withReuse = document.createElement("article");
+  withReuse.className = "card";
+  withReuse.innerHTML = `
+    <h3>Con reutilización</h3>
+    <div class="temp-reuse-code">
+      <p>$0 := a * b</p>
+      <p>$1 := c * d</p>
+      <p>$0 := $0 + $1</p>
+      <p>$1 := e * f</p>
+      <p>$0 := $0 - $1</p>
+      <p>x  := $0</p>
+    </div>
+    <p>Ahora solo se usan dos temporales: <strong>$0</strong> y <strong>$1</strong>.</p>
+  `;
+
+  const benefit = document.createElement("article");
+  benefit.className = "card";
+  benefit.innerHTML = `
+    <h3>Beneficio</h3>
+    <p>Problema: demasiados temporales. Solución: reutilizar los que ya no se necesitan. Beneficio: menor uso de nombres y memoria.</p>
+  `;
+
+  const speech = document.createElement("article");
+  speech.className = "card";
+  speech.innerHTML = `
+    <h3>Frase para exposición</h3>
+    <p>La reutilización de temporales busca evitar crear un nombre nuevo para cada resultado intermedio. Cuando un temporal ya fue usado y su valor no se necesita más, el compilador puede reciclar ese nombre para guardar otro resultado.</p>
+  `;
+
+  stack.appendChild(withReuse);
+  stack.appendChild(benefit);
+  stack.appendChild(speech);
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+  shell.appendChild(stack);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildInterleavedSlide(entry, slideNumber, layout) {
   const parsed = parseSlide(entry.text);
   const files = getManifestImages(slideNumber);
@@ -957,6 +1088,16 @@ function renderDeck() {
 
     if (slideNumber === 17) {
       deck.appendChild(buildTriplesSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 36) {
+      deck.appendChild(buildTempReuseProblemSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 37) {
+      deck.appendChild(buildTempReuseSolutionSlide(entry, slideNumber));
       return;
     }
 
