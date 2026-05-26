@@ -269,6 +269,73 @@ function buildWhyIntermediateSlide() {
   return section;
 }
 
+function buildRepresentationOverviewSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-representations";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell representations-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const intro = document.createElement("div");
+  intro.className = "representations-intro";
+  intro.innerHTML = `
+    <h2>${parsed.title || "Código de tres direcciones"}</h2>
+    <p>
+      Ya conocemos dos representaciones intermedias. En esta parte incorporamos una tercera,
+      que servirá como base para generar y organizar instrucciones más simples.
+    </p>
+  `;
+
+  const grid = document.createElement("div");
+  grid.className = "representation-grid";
+
+  const knownCard = document.createElement("article");
+  knownCard.className = "representation-card representation-card-known";
+  knownCard.innerHTML = `
+    <p class="representation-label">Ya conocidas</p>
+    <div class="representation-items">
+      <div class="representation-chip representation-chip-known">Árboles sintácticos</div>
+      <div class="representation-chip representation-chip-known">Notación postfija</div>
+    </div>
+    <p class="representation-note">
+      Estas representaciones ya nos permiten describir expresiones y su estructura.
+    </p>
+  `;
+
+  const newCard = document.createElement("article");
+  newCard.className = "representation-card representation-card-new";
+  newCard.innerHTML = `
+    <p class="representation-label">Nueva representación</p>
+    <div class="representation-items">
+      <div class="representation-chip representation-chip-new">Código de tres direcciones</div>
+    </div>
+    <p class="representation-note">
+      Introduce instrucciones simples, una operación por proposición, y prepara el camino para los ejemplos que siguen.
+    </p>
+    <a class="representation-button" href="#slide-9">Ver ejemplo de código de tres direcciones</a>
+  `;
+
+  grid.appendChild(knownCard);
+  grid.appendChild(newCard);
+
+  shell.appendChild(head);
+  shell.appendChild(intro);
+  shell.appendChild(grid);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildVisualCard(slideNumber, title) {
   if (slideNumber === 15) {
     return null;
@@ -610,6 +677,11 @@ function renderDeck() {
 
     if (sectionDividerSlides.has(slideNumber)) {
       deck.appendChild(buildSectionDividerSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 5) {
+      deck.appendChild(buildRepresentationOverviewSlide(entry, slideNumber));
       return;
     }
 
