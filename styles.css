@@ -544,6 +544,31 @@ a {
   color: var(--ink-soft);
 }
 
+.matrix-detail-shell {
+  align-content: start;
+  gap: 1.2rem;
+}
+
+.matrix-detail-visual {
+  width: 100%;
+  padding: 1rem 1.1rem;
+}
+
+.matrix-detail-visual .image-gallery.multi {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.matrix-detail-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.matrix-detail-stack .card p + p {
+  margin-top: 0.7rem;
+}
+
 .section-divider-shell {
   position: relative;
   align-content: center;
