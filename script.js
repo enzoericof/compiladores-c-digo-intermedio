@@ -1001,6 +1001,54 @@ function buildMatrixTranslationDetailSlide(entry, slideNumber, sourceSlideNumber
   return section;
 }
 
+function buildMatrixRuleSlide(entry, slideNumber, sourceSlideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-matrix-detail";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell matrix-detail-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>${parsed.title}</h2>`;
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+
+  const visualCard = buildVisualCard(slideNumber, sourceSlideNumber, parsed.title);
+  if (visualCard) {
+    visualCard.classList.add("matrix-detail-visual");
+    shell.appendChild(visualCard);
+  }
+
+  const stack = document.createElement("div");
+  stack.className = "matrix-detail-stack";
+
+  parsed.groups.forEach((group) => {
+    if (group.length === 0) {
+      return;
+    }
+
+    const [cardTitle, ...rest] = group;
+    stack.appendChild(createCard(String(cardTitle).replace(/:\s*$/, ""), rest));
+  });
+
+  shell.appendChild(stack);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildInterleavedSlide(entry, slideNumber, sourceSlideNumber, layout) {
   const parsed = parseSlide(entry.text);
   const files = getManifestImages(sourceSlideNumber);
@@ -1253,8 +1301,8 @@ function renderDeck() {
       return;
     }
 
-    if (sourceSlideNumber === 45) {
-      deck.appendChild(buildMatrixTranslationDetailSlide(entry, slideNumber, sourceSlideNumber));
+    if (sourceSlideNumber >= 41 && sourceSlideNumber <= 48) {
+      deck.appendChild(buildMatrixRuleSlide(entry, slideNumber, sourceSlideNumber));
       slideNumber += 1;
       return;
     }

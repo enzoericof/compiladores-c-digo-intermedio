@@ -202,42 +202,42 @@
     {
         "slide":  41,
         "name":  "Slide35",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices | S → L\t:= E\rE → E + E\rE → (E)\rE → L\rL → listaE]\rL → id\rlistaE → listaE,E\rlistaE → id [E"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Gramática para matrices: | S → L := E\rE → E + E\rE → (E)\rE → L\rL → listaE ]\rL → id\rlistaE → listaE , E\rlistaE → id [ E | Qué significa cada símbolo: | S representa una proposición completa, por ejemplo x := A[y,z] o A[y,z] := x.\rE representa una expresión.\rL representa un lugar: una variable simple o una referencia a matriz.\rlistaE representa la lista de índices de la matriz."
     },
     {
         "slide":  42,
         "name":  "Slide36",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Regla 1: S → L := E | Una proposición de asignación tiene un lado izquierdo L y una expresión derecha E. La acción semántica mira si L es una variable simple o una matriz. | Caso 1: L es una variable simple | Si x := E, se genera una asignación normal: x := E.lugar. | Caso 2: L es una matriz | Si A[i] := E, se genera una asignación indexada usando L.lugar como base de la matriz y L.desplazamiento como posición calculada. | Frase para exponer: | Esta regla diferencia entre asignar a una variable simple y asignar a una posición de una matriz. Si el lado izquierdo es simple, se emite una asignación normal. Si es una matriz, primero se usa el desplazamiento calculado y luego se emite una asignación indexada."
     },
     {
         "slide":  43,
         "name":  "Slide37",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Reglas 2 y 3: | Regla 2: E → E1 + E2 | Si una expresión es una suma, se crea un temporal nuevo para guardar el resultado. Ejemplo: x + y genera t1 := x + y, por lo tanto E.lugar = t1. | Regla 3: E → (E1) | Los paréntesis no generan código nuevo; solo conservan el lugar de la expresión interna. Si x + y quedó en t1, entonces (x + y) también queda en t1. | Frase para exponer: | Estas reglas muestran que las expresiones aritméticas siguen funcionando como antes: una suma genera un temporal nuevo, mientras que los paréntesis solo agrupan la expresión y no generan instrucciones nuevas."
     },
     {
         "slide":  44,
         "name":  "Slide38",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Regla 4: E → L | Una expresión puede ser un lugar de memoria. Si L es una variable simple, se usa directamente. Si L es una matriz, hay que leer el valor almacenado en la posición calculada. | Caso 1: variable simple | Si E → x, entonces E.lugar = x. | Caso 2: acceso a matriz | Si E → A[i], se calcula el desplazamiento y luego se genera algo como t1 := A[t0], donde t0 es la posición calculada y t1 guarda el valor leído. | Frase para exponer: | Esta regla convierte un lugar L en una expresión. Si L es una variable simple, se usa directamente. Pero si L es una matriz, se genera código para leer el contenido de la posición calculada y guardarlo en un temporal."
     },
     {
         "slide":  45,
         "name":  "Slide39",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices | L.Desplazamiento es un temporal nuevo que representa el primer termino de | ancho(listaE.matriz) devuelve a\rL.lugar representa el segundo termino de 8.6 que es devuelto por la función c(listaE.matriz)"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Regla 5: L → listaE ] | Esta regla se aplica cuando termina la referencia a la matriz. En ese momento ya tenemos la lista de índices y podemos calcular el desplazamiento. | L.lugar: | Representa la base o componente constante de la dirección de la matriz. | L.desplazamiento: | Representa la parte variable calculada a partir de los índices. Si cada elemento ocupa 4 bytes, un caso como A[y,z] se parece a (y * cantidad_columnas + z) * 4. | Frase para exponer: | Esta regla se aplica cuando termina la referencia a la matriz. En ese momento ya tenemos la lista de índices, por lo tanto podemos calcular el desplazamiento y preparar la dirección que se usará para leer o escribir el elemento."
     },
     {
         "slide":  46,
         "name":  "Slide40",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Regla 6: L → id | Esta regla indica que L puede ser simplemente una variable. | Atributos: | L.lugar = id.lugar\rL.desplazamiento = null | Interpretación: | El valor null indica que no se trata de una matriz. Si L es solo un identificador, el compilador usa una asignación normal y no una indexada. | Frase para exponer: | Esta regla permite seguir manejando variables simples. Si L es solo un identificador, su desplazamiento es nulo. Ese null le avisa al compilador que no debe tratarlo como matriz."
     },
     {
         "slide":  47,
         "name":  "Slide41",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Regla 7: listaE → listaE1 , E | Esta regla se usa cuando ya había una lista de índices y aparece otro índice separado por coma. Así se actualiza el cálculo del desplazamiento acumulado. | Ejemplo: A[y,z] | Primero se tiene y. Luego, al encontrar z, el compilador calcula algo como t1 := y * columnas; t1 := t1 + z. Ahora listaE.lugar guarda el cálculo acumulado. | Idea matemática: | Para A[y,z], el desplazamiento lógico es y * número_de_columnas + z. En más dimensiones, cada índice nuevo multiplica lo acumulado por el tamaño de la dimensión siguiente y luego suma el nuevo índice. | Frase para exponer: | Esta regla permite manejar matrices de varias dimensiones. Cada vez que aparece un nuevo índice, el compilador actualiza el desplazamiento acumulado."
     },
     {
         "slide":  48,
         "name":  "Slide42",
-        "text":  "Esquema de traducción para acceder a elementos  de matrices"
+        "text":  "Esquema de traducción para acceder a elementos de matrices | Regla 8: listaE → id [ E | Esta regla reconoce el comienzo de una referencia a matriz. Aquí ya se sabe cuál es la matriz y cuál es su primer índice. | Atributos iniciales: | listaE.matriz = A\rlistaE.lugar = y\rlistaE.ndim = 1 | Qué significa cada atributo: | listaE.matriz guarda cuál es la matriz.\rlistaE.lugar guarda el índice actual o el cálculo acumulado.\rlistaE.ndim indica cuántas dimensiones ya fueron procesadas. | Frase para exponer: | Esta regla inicia el procesamiento de una matriz. Guarda el nombre de la matriz, el primer índice y marca que ya se procesó una dimensión. Después, si aparecen más índices, se aplicará la regla anterior para seguir acumulando el desplazamiento."
     },
     {
         "slide":  49,
