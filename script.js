@@ -627,6 +627,114 @@ function buildSyntaxDirectedTranslationSlide(entry, slideNumber) {
   return section;
 }
 
+function buildTriplesSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-triples";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell triples-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>Triples</h2>`;
+
+  const layout = document.createElement("div");
+  layout.className = "triples-layout";
+
+  const structure = document.createElement("article");
+  structure.className = "card";
+  structure.innerHTML = `
+    <h3>Estructura</h3>
+    <div class="triples-table-wrap">
+      <table class="triples-table">
+        <thead>
+          <tr>
+            <th>índice</th>
+            <th>op</th>
+            <th>arg1</th>
+            <th>arg2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>(0)</td>
+            <td>menosu</td>
+            <td>c</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(1)</td>
+            <td>*</td>
+            <td>b</td>
+            <td>(0)</td>
+          </tr>
+          <tr>
+            <td>(2)</td>
+            <td>+</td>
+            <td>(1)</td>
+            <td>(1)</td>
+          </tr>
+          <tr>
+            <td>(3)</td>
+            <td>:=</td>
+            <td>a</td>
+            <td>(2)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="triples-note">El resultado de cada operación se identifica usando el número de fila.</p>
+  `;
+
+  const example = document.createElement("article");
+  example.className = "card";
+  example.innerHTML = `
+    <h3>Ejemplo</h3>
+    <p class="triples-expression">a := b * -c + b * -c</p>
+  `;
+
+  const interpretation = document.createElement("article");
+  interpretation.className = "card";
+  interpretation.innerHTML = `
+    <h3>Interpretación</h3>
+    <div class="triples-code-lines">
+      <p>(0) → t1 := -c</p>
+      <p>(1) → t2 := b * t1</p>
+      <p>(2) → t3 := t2 + t2</p>
+      <p>(3) → a := t3</p>
+    </div>
+  `;
+
+  const keyIdea = document.createElement("article");
+  keyIdea.className = "card";
+  keyIdea.innerHTML = `
+    <h3>Idea clave</h3>
+    <p>En triples no se guardan temporales explícitos. Los resultados se referencian usando el número de instrucción.</p>
+  `;
+
+  layout.appendChild(structure);
+  layout.appendChild(example);
+  layout.appendChild(interpretation);
+  layout.appendChild(keyIdea);
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+  shell.appendChild(layout);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildInterleavedSlide(entry, slideNumber, layout) {
   const parsed = parseSlide(entry.text);
   const files = getManifestImages(slideNumber);
@@ -844,6 +952,11 @@ function renderDeck() {
 
     if (slideNumber === 13) {
       deck.appendChild(buildSyntaxDirectedTranslationSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 17) {
+      deck.appendChild(buildTriplesSlide(entry, slideNumber));
       return;
     }
 

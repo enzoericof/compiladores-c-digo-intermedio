@@ -426,6 +426,64 @@ a {
   font-size: clamp(1.05rem, 1.55vw, 1.3rem);
 }
 
+.triples-shell {
+  align-content: start;
+  gap: 1.2rem;
+}
+
+.triples-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.triples-table-wrap {
+  overflow-x: auto;
+  margin-top: 0.35rem;
+}
+
+.triples-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Courier New", Courier, monospace;
+  color: #111317;
+}
+
+.triples-table th,
+.triples-table td {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(17, 19, 23, 0.12);
+  text-align: left;
+}
+
+.triples-table th {
+  background: rgba(236, 245, 255, 0.95);
+  font-weight: 800;
+}
+
+.triples-expression,
+.triples-code-lines p {
+  font-family: "Courier New", Courier, monospace;
+  color: #111317;
+}
+
+.triples-expression {
+  margin-top: 0.35rem;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-weight: 700;
+}
+
+.triples-code-lines {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.triples-note {
+  margin-top: 0.8rem;
+}
+
 .section-divider-shell {
   position: relative;
   align-content: center;
