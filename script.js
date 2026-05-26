@@ -546,6 +546,87 @@ function buildThreeAddressIntroSlide(entry, slideNumber) {
   return section;
 }
 
+function buildSyntaxDirectedTranslationSlide(entry, slideNumber) {
+  const parsed = parseSlide(entry.text);
+  const section = document.createElement("section");
+  section.className = "slide slide-sdt";
+  section.id = `slide-${slideNumber}`;
+
+  const shell = document.createElement("div");
+  shell.className = "slide-shell sdt-shell";
+
+  const head = document.createElement("div");
+  head.className = "slide-head";
+  head.innerHTML = `
+    <div class="slide-head-meta">
+      <span class="slide-number">${String(slideNumber).padStart(2, "0")}</span>
+      <span class="slide-label">Diapositiva ${slideNumber}</span>
+    </div>
+  `;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+  heading.innerHTML = `<h2>${parsed.title}</h2>`;
+
+  const flow = document.createElement("div");
+  flow.className = "sdt-flow";
+  flow.innerHTML = `
+    <div class="sdt-flow-box">Gramática + reglas semánticas</div>
+    <div class="sdt-flow-arrow">↓</div>
+    <div class="sdt-flow-box sdt-flow-result">Código de tres direcciones</div>
+  `;
+
+  const grid = document.createElement("div");
+  grid.className = "sdt-grid";
+
+  const attributes = document.createElement("article");
+  attributes.className = "card";
+  attributes.innerHTML = `
+    <h3>Qué guarda cada expresión E</h3>
+    <div class="sdt-code-block">
+      <p><strong>E.lugar</strong> → variable o temporal donde queda el resultado</p>
+      <p><strong>E.código</strong> → instrucciones necesarias para calcular E</p>
+    </div>
+  `;
+
+  const example = document.createElement("article");
+  example.className = "card";
+  example.innerHTML = `
+    <h3>Ejemplo</h3>
+    <p class="sdt-inline-example">a := b * c + d</p>
+  `;
+
+  const translation = document.createElement("article");
+  translation.className = "card";
+  translation.innerHTML = `
+    <h3>Traducción generada</h3>
+    <div class="sdt-code-block sdt-code-lines">
+      <p>t1 := b * c</p>
+      <p>t2 := t1 + d</p>
+      <p>a := t2</p>
+    </div>
+  `;
+
+  const keyIdea = document.createElement("article");
+  keyIdea.className = "card";
+  keyIdea.innerHTML = `
+    <h3>Idea clave</h3>
+    <p>Primero se calcula la expresión en temporales. Luego se asigna el resultado final a la variable.</p>
+  `;
+
+  grid.appendChild(attributes);
+  grid.appendChild(example);
+  grid.appendChild(translation);
+  grid.appendChild(keyIdea);
+
+  shell.appendChild(head);
+  shell.appendChild(heading);
+  shell.appendChild(flow);
+  shell.appendChild(grid);
+  section.appendChild(shell);
+  return section;
+}
+
 function buildInterleavedSlide(entry, slideNumber, layout) {
   const parsed = parseSlide(entry.text);
   const files = getManifestImages(slideNumber);
@@ -758,6 +839,11 @@ function renderDeck() {
 
     if (slideNumber === 9) {
       deck.appendChild(buildThreeAddressIntroSlide(entry, slideNumber));
+      return;
+    }
+
+    if (slideNumber === 13) {
+      deck.appendChild(buildSyntaxDirectedTranslationSlide(entry, slideNumber));
       return;
     }
 

@@ -365,6 +365,67 @@ a {
   line-height: 1.45;
 }
 
+.sdt-shell {
+  align-content: start;
+  gap: 1.2rem;
+}
+
+.sdt-flow {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.sdt-flow-box {
+  padding: 0.85rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.92);
+  font-weight: 800;
+  color: var(--blue-deep);
+}
+
+.sdt-flow-result {
+  background: rgba(236, 245, 255, 0.96);
+}
+
+.sdt-flow-arrow {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--blue-deep);
+  line-height: 1;
+}
+
+.sdt-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.sdt-code-block {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.sdt-code-block p,
+.sdt-inline-example {
+  font-family: "Courier New", Courier, monospace;
+  color: #111317;
+}
+
+.sdt-inline-example {
+  margin-top: 0.35rem;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 700;
+}
+
+.sdt-code-lines p {
+  font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+}
+
 .section-divider-shell {
   position: relative;
   align-content: center;

@@ -62,7 +62,7 @@
     {
         "slide":  13,
         "name":  "Slide12",
-        "text":  "Traducción dirigida por la sintaxis a código de  tres direcciones | Cuando se genera código de tres direcciones, se construyen nombres temporales para los nodos interiores de un árbol sintáctico. Se calculará el valor del no terminal en el lado izquierdo dentro de un nuevo temporal t. \r\rEn general, el código de tres direcciones para id := E consta de código para evaluar E en algún nombre temporal t, seguido de la asignación id.lugar := t."
+        "text":  "Traducción dirigida por la sintaxis a código de tres direcciones | Para cada expresión E, el compilador guarda:\r\rE.lugar → variable o temporal donde queda el resultado\r\rE.código → instrucciones necesarias para calcular E | Ejemplo:\r\ra := b * c + d | Traducción:\r\rt1 := b * c\r\rt2 := t1 + d\r\ra := t2 | Idea clave:\r\rPrimero se calcula la expresión en temporales.\r\rLuego se asigna el resultado final a la variable."
     },
     {
         "slide":  14,
