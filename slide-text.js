@@ -382,7 +382,7 @@
     {
         "slide":  77,
         "name":  "Slide72",
-        "text":  "Relleno con Retroceso | Para poder utilizar el ***relleno de retroceso*** se generan cuadruplos en una matriz cuádruplo en donde las etiquetas serán índices en esta matriz, se utiliza este método para una mayor concreción. | Para manipular listas de etiquetas se utilizan tres funciones: | ***crealista(i)*** crea una lista nueva que contiene sólo i, un índice para la matriz de cuádruplos; **crealista** devuelve un apuntador a la lista que ha elaborado.\n***fusiona(p1, p2)*** concatena las listas apuntadas por p1 y p2, y devuelve un apuntador a la lista concatenada.\n***completa (p, i)*** inserta i como la etiqueta objeto de cada una de las proposiciones de la lista apuntada por p."
+        "text":  "Relleno con Retroceso | Para poder utilizar el ***relleno de retroceso*** se generan cuadruplos en una matriz cuádruplo en donde las etiquetas serán índices en esta matriz, se utiliza este método para una mayor concreción. | Para manipular listas de etiquetas se utilizan tres funciones: | ***crealista(i)*** crea una lista nueva que contiene sólo i, un índice para la matriz de cuádruplos, ***crealista*** devuelve un apuntador a la lista que ha elaborado.\n***fusiona(p1, p2)*** concatena las listas apuntadas por p1 y p2, y devuelve un apuntador a la lista concatenada.\n***completa (p, i)*** inserta i como la etiqueta objeto de cada una de las proposiciones de la lista apuntada por p."
     },
     {
         "slide":  78,
@@ -402,27 +402,27 @@
     {
         "slide":  81,
         "name":  "Slide76",
-        "text":  "Expresiones booleanas | ***Ejemplo:*** Si consideramos la siguiente expresión **a \u003c b or c \u003c d and e \u003c f**. En respuesta a la reducción **a \u003c b** a **E** por la producción (5), se generan los cuádruplos: 100: if a \u003c b goto _ ; 101: goto _. | En donde el no terminal **M** en la producción (1) registra el valor de **sigtecuad**, que en ese momento es 102."
+        "text":  "Expresiones booleanas | ***Ejemplo:*** Si consideramos la siguiente expresión **a \u003c b or c \u003c d and e \u003c f** (Hay que tener en cuenta que la enumeración de nuestras proposiciones será arbitraria y será 100). En respuesta a la reducción **a \u003c b** a **E** por la producción (5), se generan los cuádruplos: | En donde el no terminal **M** en la producción (1) registra el valor de ***sigtecuad***, que en ese momento es 102."
     },
     {
         "slide":  82,
         "name":  "Slide77",
-        "text":  "Expresiones booleanas | ***Ejemplo:*** La reducción de **c \u003c d** a **E** por la producción (5) genera los cuádruplos: 102: if c \u003c d goto _ ; 103: goto _. | Ahora se ha visto **E1** en la producción (2). El marcador no terminal **M** en esta producción registra el valor en curso de ***sigtecuad***, que ahora es 104."
+        "text":  "Expresiones booleanas | ***Ejemplo:*** La reducción de **c \u003c d** a **E** por la producción (5) genera los cuádruplos: | Ahora se ha visto **E1** en la producción (2). El marcador no terminal **M** en esta producción registra el valor en curso de ***sigtecuad***, que ahora es 104."
     },
     {
         "slide":  83,
         "name":  "Slide78",
-        "text":  "Expresiones booleanas | ***Ejemplo:*** Reduciendo **e \u003c f** a **E** por la producción (5) genera: 104: if e \u003c f goto _ ; 105: goto _."
+        "text":  "Expresiones booleanas | ***Ejemplo:*** Reduciendo **e \u003c f** a **E** por la producción (5) genera:"
     },
     {
         "slide":  84,
         "name":  "Slide79",
-        "text":  "Expresiones booleanas | Ahora se reduce por la producción (2), la acción semántica correspondiente llama a ***completa({102}, 104)***, donde {102} como argumento indica un apuntador a la lista que contiene solo a 102, siendo esa lista apuntada por ***E1.listaverdad***. Esta llamada ***completa*** pone 104 en la proposición 102. Por tanto lo generado hasta ahora es: 100: if a \u003c b goto _ ; 101: goto _ ; 102: if c \u003c d goto 104 ; 103: goto _ ; 104: if e \u003c f goto _ ; 105: goto _."
+        "text":  "Expresiones booleanas | Ahora se reduce por la producción (2), la acción semántica correspondiente llama a ***completa({102}, 104)***, donde {102} como argumento indica un apuntador a la lista que contiene solo a 102, siendo esa lista apuntada por ***E1.listaverdad***. Esta llamada ***completa*** pone 104 en la proposición 102. Por tanto lo generado hasta ahora es:"
     },
     {
         "slide":  85,
         "name":  "Slide80",
-        "text":  "Expresiones booleanas | La acción semántica asociada con la reducción final por (1) llama a ***completa({101}, 102)*** que deja a las proposiciones como: 100: if a \u003c b goto _ ; 101: goto 102 ; 102: if c \u003c d goto 104 ; 103: goto _ ; 104: if e \u003c f goto _ ; 105: goto _. | Como se puede observar, toda esta expresión es **verdadera** ssi se alcanzan los goto de las proposiciones 100 o 104, y **falsa** ssi al alcanzar 103 y 105."
+        "text":  "Expresiones booleanas | La acción semántica asociada con la reducción final por (1) llama a ***completa({101}, 102)*** que deja a las proposiciones como: | Como se puede observar, toda esta expresión es **verdadera** ssi se alcanzan los goto de las proposiciones 100 o 104, y **falsa** ssi al alcanzar 103 y 105."
     },
     {
         "slide":  86,
