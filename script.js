@@ -1059,14 +1059,38 @@ function buildMatrixRuleSlide(entry, slideNumber, sourceSlideNumber) {
   const stack = document.createElement("div");
   stack.className = "matrix-detail-stack";
 
+  const article = document.createElement("article");
+  article.className = "card matrix-rule-card";
+
   parsed.groups.forEach((group) => {
     if (group.length === 0) {
       return;
     }
 
     const [cardTitle, ...rest] = group;
-    stack.appendChild(createCard(String(cardTitle).replace(/:\s*$/, ""), rest));
+    const block = document.createElement("section");
+    block.className = "matrix-rule-block";
+
+    const subhead = document.createElement("h3");
+    subhead.textContent = String(cardTitle).replace(/:\s*$/, "");
+    block.appendChild(subhead);
+
+    if (rest.length === 1) {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = rest[0];
+      block.appendChild(paragraph);
+    } else if (rest.length > 1) {
+      rest.forEach((line) => {
+        const paragraph = document.createElement("p");
+        paragraph.textContent = line;
+        block.appendChild(paragraph);
+      });
+    }
+
+    article.appendChild(block);
   });
+
+  stack.appendChild(article);
 
   shell.appendChild(stack);
   section.appendChild(shell);
