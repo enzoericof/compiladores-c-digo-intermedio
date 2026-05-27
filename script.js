@@ -18,7 +18,7 @@ const whyIntermediateItems = [
 ];
 const removedSourceSlides = new Set([39]);
 const sectionDividerSlides = new Set([4, 19, 34, 50, 69, 75, 91]);
-const plainTextSlides = new Set([20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68]);
+const plainTextSlides = new Set([20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]);
 const interleavedLayouts = {
   22: ["text:0", "image:0", "text:1", "image:1"],
   24: ["text:0", "row:image=0+caption=1,image=1"],
@@ -38,7 +38,19 @@ const interleavedLayouts = {
   63: ["row:image=0,text=0+text=1"],
   65: ["row:image=0,text=0+text=1+text=2"],
   66: ["row:image=0,image=1"],
-  68: ["row:image=0,text=0+text=1"]
+  68: ["row:image=0,text=0+text=1"],
+  78: ["text:0", "text:1", "image:0"],
+  79: ["row:image=0,text=0+text=1+text=2"],
+  80: ["row:image=0,text=0"],
+  81: ["row:image=0,text=0+text=1"],
+  82: ["row:image=0,text=0+text=1"],
+  83: ["row:image=0,text=0"],
+  84: ["row:image=0,text=0"],
+  85: ["row:image=0,text=0+text=1"],
+  86: ["image:0"],
+  87: ["text:0", "text:1", "image:0"],
+  88: ["row:image=0,text=0+text=1+text=2"],
+  90: ["row:image=0,text=0+text=1"]
 };
 
 function normalizeLine(line) {
