@@ -382,7 +382,7 @@
     {
         "slide":  77,
         "name":  "Slide72",
-        "text":  "Relleno con Retroceso | Para poder utilizar el ***relleno de retroceso*** se generan cuadruplos en una matriz cuádruplo en donde las etiquetas serán índices en esta matriz, se utiliza este método para una mayor concreción. | Para manipular listas de etiquetas se utilizan tres funciones: | ***crealista(i)*** crea una lista nueva que contiene sólo i, un índice para la matriz de cuádruplos, ***crealista*** devuelve un apuntador a la lista que ha elaborado.\n***fusiona(p1, p2)*** concatena las listas apuntadas por p1 y p2, y devuelve un apuntador a la lista concatenada.\n***completa (p, i)*** inserta i como la etiqueta objeto de cada una de las proposiciones de la lista apuntada por p."
+        "text":  "Relleno con Retroceso | Para utilizar el ***relleno con retroceso***, se generan cuádruplos en una matriz donde las etiquetas actúan como índices. Este método se emplea para lograr una mayor precisión y claridad en el proceso. | Para manipular listas de etiquetas se utilizan tres funciones: | ***crealista(i)*** crea una lista nueva que contiene sólo i, un índice para la matriz de cuádruplos, ***crealista*** devuelve un apuntador a la lista que ha elaborado.\n***fusiona(p1, p2)*** concatena las listas apuntadas por p1 y p2, y devuelve un apuntador a la lista concatenada.\n***completa (p, i)*** inserta i como la etiqueta objeto de cada una de las proposiciones de la lista apuntada por p."
     },
     {
         "slide":  78,
