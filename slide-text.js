@@ -252,92 +252,92 @@
     {
         "slide":  51,
         "name":  "Slide46",
-        "text":  "Expresiones booleanas. | Las expresiones booleanas se utilizan para calcular valores lógicos y como  expresiones condicionales que alteran el ﬂujo del programa.\rSe consideran las expresiones booleanas generadas por la gramática:"
+        "text":  "Expresiones booleanas | Las expresiones booleanas se utilizan para calcular valores lógicos y como expresiones condicionales que alteran el flujo del programa. | Se consideran las expresiones booleanas generadas por la gramática:"
     },
     {
         "slide":  52,
         "name":  "Slide47",
-        "text":  "Métodos para traducir expresiones booleanas. | Hay dos métodos principales para representar los valores de una expresión booleana:\rCodiﬁcar numéricamente los valores true y false (como se suele hacer con 1  y 0)\rMediante el ﬂujo de control, representando el valor de una expresión booleana  mediante la posición alcanzada en un programa.\r\rLa semántica de los lenguajes de programación determina si se deben evaluar todas las  partes de una expresión booleana."
+        "text":  "Métodos para traducir expresiones booleanas | Hay dos métodos principales para representar los valores de una expresión booleana: | Codificar numéricamente los valores **true** y **false** (como se suele hacer con 1 y 0).\nMediante el flujo de control, representando el valor de una expresión booleana mediante la posición alcanzada en un programa. | La semántica de los lenguajes de programación determina si se deben evaluar todas las partes de una expresión booleana."
     },
     {
         "slide":  53,
         "name":  "Slide48",
-        "text":  "Representación Numérica | Se utiliza 1   para indicar el valor TRUE, 0 para indicar el valor FALSE.\r\rLas expresiones se evaluaran completamente de izquierda a derecha, de manera  similar a las expresiones aritméticas."
+        "text":  "Representación Numérica | Se utiliza 1 para indicar el valor **TRUE,** 0 para indicar el valor **FALSE.** | Las expresiones se evaluaran completamente de izquierda a derecha, de manera similar a las expresiones aritméticas."
     },
     {
         "slide":  54,
         "name":  "Slide49",
-        "text":  "Representación Numérica | Se utiliza 1  para indicar el valor TRUE, 0 para indicar el valor FALSE.\r\rLas expresiones se evaluaran completamente de izquierda a derecha, de manera  similar a las expresiones aritméticas.\r\rEjemplo:\rLa traducción de:\ra or b and not c\res la secuencia de tres direcciones siguiente:  t1 := not c\rt2 := b and t1\rt3 := a or t2"
+        "text":  "Representación Numérica | Se utiliza 1 para indicar el valor **TRUE,** 0 para indicar el valor **FALSE.** | Las expresiones se evaluaran completamente de izquierda a derecha, de manera similar a las expresiones aritméticas. | ***Ejemplo:*** La traducción de **a or b and not c** es la secuencia de tres direcciones siguiente: | t1 := **not** c\nt2 := b **and** t1\nt3 := a **or** t2"
     },
     {
         "slide":  55,
         "name":  "Slide50",
-        "text":  "Representación Numérica | Una expresión relacional como a \u003c b es equivalente a la proposición condicional if a \u003c  b then 1 else 0, que se puede traducir a:"
+        "text":  "Representación Numérica | Una expresión relacional como **a < b** es equivalente a la proposición condicional **if a < b then 1 else 0**, que se puede traducir a:"
     },
     {
         "slide":  56,
         "name":  "Slide51",
-        "text":  "Representación Numérica | En la anterior ﬁgura se ve un esquema de  traducción para producir código de tres  direcciones para expresiones booleanas."
+        "text":  "Representación Numérica | En la anterior figura se ve un esquema de traducción para producir código de tres direcciones para expresiones booleanas."
     },
     {
         "slide":  57,
         "name":  "Slide52",
-        "text":  "Codigo cortocircuito | En el código de corto circuito (o de salto), se puede traducir una expresión  booleana a código de tres direcciones sin generar código para ninguno de los  operadores booleanos y sin que haya que evaluar necesariamente la expresión  completa (se traducen en saltos)"
+        "text":  "Código cortocircuito | En el código de corto circuito (o de salto), se puede traducir una expresión booleana a código de tres direcciones sin generar código para ninguno de los operadores booleanos y sin que haya que evaluar necesariamente la expresión completa (se traducen en saltos)."
     },
     {
         "slide":  58,
         "name":  "Slide53",
-        "text":  "Codigo cortocircuito | En el código de corto circuito (o de salto), se puede traducir una expresión  booleana a código de tres direcciones sin generar código para ninguno de los  operadores booleanos y sin que haya que evaluar necesariamente la expresión  completa (se traducen en saltos)\rEjemplo:\rPara expresion a\u003cb or c\u003cd and e\u003cf podría traducirse de la forma:"
+        "text":  "Código cortocircuito | En el código de corto circuito (o de salto), se puede traducir una expresión booleana a código de tres direcciones sin generar código para ninguno de los operadores booleanos y sin que haya que evaluar necesariamente la expresión completa (se traducen en saltos). | ***Ejemplo:*** Para la expresión **a \u003c b or c \u003c d and e \u003c f** podría traducirse de la forma:"
     },
     {
         "slide":  59,
         "name":  "Slide54",
-        "text":  "Proposiciones de flujo de control | Ahora se considera la traducción de expresiones booleanas dentro del código  de tres direcciones en el contexto de proposiciones if-then, if-then-else y  while-do como las generadas en la siguiente gramática:"
+        "text":  "Proposiciones de flujo de control | Ahora se considera la traducción de expresiones booleanas dentro del código de tres direcciones en el contexto de proposiciones **if-then**, **if-then-else** y **while-do** como las generadas en la siguiente gramática:"
     },
     {
         "slide":  60,
         "name":  "Slide55",
-        "text":  "Proposiciones de flujo de control | Con una expresión booleana E se asocian dos etiquetas:  E.verdadera, la etiqueta a la que ﬂuye el control si E es  verdadera, y E.falsa, la etiqueta a la que ﬂuye el control si E  es falsa.\r\rLas reglas semánticas para traducir S permiten que el  control ﬂuya desde la traducción S.codigo a la instrucción  de tres direcciones situada inmediatamente después de  S.codigo.\r\r\rEl valor S.siguiente es una etiqueta que se asocia a la  primera instrucción de tres direcciones que se ejecuta  después del código correspondiente a S."
+        "text":  "Proposiciones de flujo de control | Con una expresión booleana **E** se asocian dos etiquetas: **E.verdadera**, la etiqueta a la que fluye el control si **E** es verdadera, y **E.falsa**, la etiqueta a la que fluye el control si **E** es falsa. | Las reglas semánticas para traducir **S** permiten que el control fluya desde la traducción **S.codigo** a la instrucción de tres direcciones situada inmediatamente después de **S.codigo**. | El valor **S.siguiente** es una etiqueta que se asocia a la primera instrucción de tres direcciones que se ejecuta después del código correspondiente a **S**."
     },
     {
         "slide":  61,
         "name":  "Slide56",
-        "text":  "Proposiciones de flujo de control | (a) Al traducir if-then, S -\u003e if E then S1, se crea una  nueva etiqueta E.verdadera y se asocia a la primera  instrucción de tres direcciones generada para la  proposición S1."
+        "text":  "Proposiciones de flujo de control | **(a)** Al traducir **if-then, S → if E then S1**, se crea una nueva etiqueta **E.verdadera** y se asocia a la primera instrucción de tres direcciones generada para la proposición **S1**."
     },
     {
         "slide":  62,
         "name":  "Slide57",
-        "text":  "Proposiciones de flujo de control | (b) Al traducir if-then-else, S -\u003e if E then S1 else S2,  el código correspondiente a la expresión booleana E  salta afuera de él a la primera instrucción del código  para S1 si E es verdadera y S2 si es falsa.\r\rS.siguiente proporciona la etiqueta de la instrucción  que debe ejecutarse después de  ejecutar el código  de S."
+        "text":  "Proposiciones de flujo de control | **(b)** Al traducir **if-then-else, S → if E then S1 else S2**, el código correspondiente a la expresión booleana **E** salta afuera de él a la primera instrucción del código para **S1** si **E** es verdadera y **S2** si es falsa. | **S.siguiente** proporciona la etiqueta de la instrucción que debe ejecutarse después de ejecutar el código de **S**."
     },
     {
         "slide":  63,
         "name":  "Slide58",
-        "text":  "Proposiciones de flujo de control | (c) El código para S -\u003e while E do S1, se crea y se  asocia una nueva etiqueta S.comienzo a la primera  instrucción generada por E. Otra etiqueta nueva,  E.verdadera, se asocia a la primera instrucción de S1.  El código para E genera un salto a esta etiqueta si E es  verdadera y un salto a S.siguiente si E es falsa; de  nuevo, se iguala E.falsa a S.siguiente.\r\rDespués del código para S1 se coloca la instrucción  goto S.comienzo, que produce un salto de vuelta al  principio del código correspondiente a la expresión  booleana."
+        "text":  "Proposiciones de flujo de control | **(c)** El código para **S → while E do S1**, se crea y se asocia una nueva etiqueta **S.comienzo** a la primera instrucción generada por **E**. Otra etiqueta nueva, **E.verdadera**, se asocia a la primera instrucción de **S1**. El código para **E** genera un salto a esta etiqueta si **E** es verdadera y un salto a **S.siguiente** si **E** es falsa; de nuevo, se iguala **E.falsa** a **S.siguiente**. | Después del código para **S1** se coloca la instrucción **goto S.comienzo**, que produce un salto de vuelta al principio del código correspondiente a la expresión booleana."
     },
     {
         "slide":  64,
         "name":  "Slide59",
-        "text":  "Traducciones a flujo de control de expresiones  booleanas | E se traduce a una secuencia de proposiciones de tres direcciones que evalúan E como  una secuencia de saltos condicionales e incondicionales a una de dos posiciones:  E.verdadera. el lugar que debe alcanzar el ﬂujo del control si E es verdadera, y E.falsa, el  lugar que debe alcanzar el control si E es falsa."
+        "text":  "Traducciones a flujo de control de expresiones booleanas | **E** se traduce a una secuencia de proposiciones de tres direcciones que evalúan **E** como una secuencia de saltos condicionales e incondicionales a una de dos posiciones: **E.verdadera**, el lugar que debe alcanzar el flujo del control si **E** es verdadera, y **E.falsa**, el lugar que debe alcanzar el control si **E** es falsa."
     },
     {
         "slide":  65,
         "name":  "Slide60",
-        "text":  "Traducciones a flujo de control de expresiones  booleanas | En la ﬁgura 8.24 se muestra una deﬁnición dirigida por  la sintaxis que genera código de tres direcciones para  expresiones booleanas.\rObsérvese que los atributos verdadera y falsa son  heredados.\r\rEl problema de las definiciones de la figura 8.24 es que  genera líneas de código redundante."
+        "text":  "Traducciones a flujo de control de expresiones booleanas | En la figura 8.24 se muestra una definición dirigida por la sintaxis que genera código de tres direcciones para expresiones booleanas. | Obsérvese que los atributos **verdadera** y **falsa** son heredados. | El problema de las definiciones de la figura 8.24 es que genera líneas de código redundante."
     },
     {
         "slide":  66,
         "name":  "Slide61",
-        "text":  "Traducciones a flujo de control de expresiones  booleanas"
+        "text":  "Traducciones a flujo de control de expresiones booleanas"
     },
     {
         "slide":  67,
         "name":  "Slide62",
-        "text":  "Expresiones booleanas en modo mixto | Hay que tener en cuenta que en la práctica, las expresiones booleanas a menudo contienen  sub expresiones aritméticas como en (a+b) \u003c c. En ciertos lenguajes por ejemplo se puede  considerar una expresión aritmética la siguiente expresión booleana (a\u003cb) + (b\u003ca), esto  puede ser 0 si a y b son iguales y 1 en caso contrario."
+        "text":  "Expresiones booleanas en modo mixto | Hay que tener en cuenta que en la práctica, las expresiones booleanas a menudo contienen sub expresiones aritméticas como en **(a+b) \u003c c**. En ciertos lenguajes por ejemplo se puede considerar una expresión aritmética la siguiente expresión booleana **(a\u003cb) + (b\u003ca)**, esto puede ser 0 si **a** y **b** son iguales y 1 en caso contrario."
     },
     {
         "slide":  68,
         "name":  "Slide63",
-        "text":  "Expresiones booleanas en modo mixto | Para generar código en esta situación, se utiliza el atributo  sintetizado E.tipo, que será aritm o bool, dependiendo del  tipo de E.\r\rE tendrá los atributos heredados E.verdadera y E.falsa para  expresiones booleanas y atributos sintetizados E.lugar para  las expresiones aritméticas."
+        "text":  "Expresiones booleanas en modo mixto | Para generar código en esta situación, se utiliza el atributo sintetizado **E.tipo**, que será **aritm** o **bool**, dependiendo del tipo de **E**. | **E** tendrá los atributos heredados **E.verdadera** y **E.falsa** para expresiones booleanas y atributos sintetizados **E.lugar** para las expresiones aritméticas."
     },
     {
         "slide":  69,
