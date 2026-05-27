@@ -377,52 +377,52 @@
     {
         "slide":  76,
         "name":  "Slide71",
-        "text":  "Relleno con Retroceso | La forma fácil de implantar las deﬁniciones dirigidas por las sintaxis para las expresiones  regulares y las preposiciones de ﬂujo de control es utilizar dos pasadas, ya que en una sola  pasada es posible que no se conozcan las etiquetas a las que debe ir el control en el  momento en que se generan las proposiciones de salta (goto).\r\rPara evitar este problema se genera una serie de proposiciones de ramiﬁcación sin  especiﬁcar temporalmente los destinos de los saltos, en donde cada una de estas  preposiciones se colocara en una lista de proposiciones goto cuyas etiquetas se  rellenaran cuando se pueda determinar la etiqueta adecuada. Este relleno posterior de  etiquetas se denomina relleno de retroceso."
+        "text":  "Relleno con Retroceso | La forma fácil de implantar las definiciones dirigidas por las sintaxis para las expresiones regulares y las preposiciones de flujo de control es utilizar dos pasadas, ya que en una sola pasada es posible que no se conozcan las etiquetas a las que debe ir el control en el momento en que se generan las proposiciones de salta (goto). | Para evitar este problema se genera una serie de proposiciones de ramificación sin especificar temporalmente los destinos de los saltos, en donde cada una de estas preposiciones se colocara en una lista de **proposiciones goto** cuyas etiquetas se rellenaran cuando se pueda determinar la etiqueta adecuada. Este relleno posterior de etiquetas se denomina ***relleno de retroceso.***"
     },
     {
         "slide":  77,
         "name":  "Slide72",
-        "text":  "Relleno con Retroceso | Para poder utilizar el relleno de retroceso se generan cuadruplos en una matriz cuádruplo en  donde las etiquetas serán índices en esta matriz, se utiliza este método para una mayor  concreción.\r\rPara manipular listas de etiquetas se utilizan tres funciones:\rcrealista(i) crea una lista nueva que contiene sólo i, un índice para la matriz de cuádruplos;\rcrealista devuelve un apuntador a la lista que ha elaborado.\rfusiona(p1, p2) concatena las listas apuntadas por p1 y p2, y devuelve un apuntador a la  lista concatenada.\rcompleta (p, i) inserta i como la etiqueta objeto de cada una de las proposiciones de la lista  apuntada por p."
+        "text":  "Relleno con Retroceso | Para poder utilizar el ***relleno de retroceso*** se generan cuadruplos en una matriz cuádruplo en donde las etiquetas serán índices en esta matriz, se utiliza este método para una mayor concreción. | Para manipular listas de etiquetas se utilizan tres funciones: | ***crealista(i)*** crea una lista nueva que contiene sólo i, un índice para la matriz de cuádruplos; **crealista** devuelve un apuntador a la lista que ha elaborado.\n***fusiona(p1, p2)*** concatena las listas apuntadas por p1 y p2, y devuelve un apuntador a la lista concatenada.\n***completa (p, i)*** inserta i como la etiqueta objeto de cada una de las proposiciones de la lista apuntada por p."
     },
     {
         "slide":  78,
         "name":  "Slide73",
-        "text":  "Expresiones booleanas | Ahora se construye un esquema de traducción adecuado para  producir cuadruplos para  las  expresiones booleanas durante el análisis sintáctico ascendente.\rLa gramática que se utiliza es la siguiente:"
+        "text":  "Expresiones booleanas | Ahora se construye un esquema de traducción adecuado para producir cuadruplos para las expresiones booleanas durante el análisis sintáctico ascendente. | La gramática que se utiliza es la siguiente:"
     },
     {
         "slide":  79,
         "name":  "Slide74",
-        "text":  "Expresiones booleanas | Los atributos sintetizados listaverdad y listafalso del no  terminal E se utilizan para generar código de salto para las  expresiones booleanas.\r\rLos saltos a las salidas verdadero y falso se dejan incompletos,  sin rellenar el campo de la etiqueta.\r\rEstos saltos incompletos se colocan en listas apuntadas por\rE.listaverdad y E.listafalso, de manera apropiada."
+        "text":  "Expresiones booleanas | Los atributos sintetizados ***listaverdad*** y ***listafalso*** del no terminal **E** se utilizan para generar código de salto para las expresiones booleanas. | Los saltos a las salidas verdadero y falso se dejan incompletos, sin rellenar el campo de la etiqueta. | Estos saltos incompletos se colocan en listas apuntadas por **E.listaverdad** y **E.listafalso**, de manera apropiada."
     },
     {
         "slide":  80,
         "name":  "Slide75",
-        "text":  "Expresiones booleanas | Ejemplo:\rSi consideramos la siguiente expresión a \u003c b or c \u003c d and e \u003c f  (Hay que tener en cuenta que la enumeración de nuestra  proposiciones será arbitraria y será 100.)"
+        "text":  "Expresiones booleanas | ***Ejemplo:*** Si consideramos la siguiente expresión **a \u003c b or c \u003c d and e \u003c f** (Hay que tener en cuenta que la enumeración de nuestras proposiciones será arbitraria y será 100)."
     },
     {
         "slide":  81,
         "name":  "Slide76",
-        "text":  "Expresiones booleanas | Ejemplo:\rSi consideramos la siguiente expresión a \u003c b or c \u003c d and e \u003c f  (Hay que tener en cuenta que la enumeración de nuestra  proposiciones será arbitraria y será 100.)\r\rEn respuesta a la reducción a \u003c b a E por la  producción (5), se genera los cuádruplos: | En donde el no terminal M en la producción (1) registra el  valor de sigtecuad, que en ese momento es 102."
+        "text":  "Expresiones booleanas | ***Ejemplo:*** Si consideramos la siguiente expresión **a \u003c b or c \u003c d and e \u003c f**. En respuesta a la reducción **a \u003c b** a **E** por la producción (5), se generan los cuádruplos: 100: if a \u003c b goto _ ; 101: goto _. | En donde el no terminal **M** en la producción (1) registra el valor de **sigtecuad**, que en ese momento es 102."
     },
     {
         "slide":  82,
         "name":  "Slide77",
-        "text":  "Expresiones booleanas | Ejemplo:\rSi consideramos la siguiente expresión a \u003c b or c \u003c d and e \u003c f  (Hay que tener en cuenta que la enumeración de nuestra  proposiciones será arbitraria y será 100.)\r\rLa reducción de c \u003c d a E por la producción (5) genera  los cuadruplos: | Ahora se ha visto E1 en la producción (2). El marcador no  terminal M esta producción registra el valor en curso de  sigtecuad, que ahora es 104."
+        "text":  "Expresiones booleanas | ***Ejemplo:*** La reducción de **c \u003c d** a **E** por la producción (5) genera los cuádruplos: 102: if c \u003c d goto _ ; 103: goto _. | Ahora se ha visto **E1** en la producción (2). El marcador no terminal **M** en esta producción registra el valor en curso de ***sigtecuad***, que ahora es 104."
     },
     {
         "slide":  83,
         "name":  "Slide78",
-        "text":  "Expresiones booleanas | Ejemplo:\rSi consideramos la siguiente expresión a \u003c b or c \u003c d and e \u003c f  (Hay que tener en cuenta que la enumeración de nuestra  proposiciones será arbitraria y será 100.)\r\rReduciendo e \u003c f a E por la producción (5) genera:"
+        "text":  "Expresiones booleanas | ***Ejemplo:*** Reduciendo **e \u003c f** a **E** por la producción (5) genera: 104: if e \u003c f goto _ ; 105: goto _."
     },
     {
         "slide":  84,
         "name":  "Slide79",
-        "text":  "Expresiones booleanas | Ahora se reduce por la producción (2), la acción semántica  correspondiente llama a completa({102}, 104), donde {102} como  argumento indica un apuntador a la lista que contiene solo a 102,  siendo esa lista apuntada por E1.listaverdad.\rEsta llamada completa pone 104 en la proposición 102. Por tanto  lo generado hasta ahora es:"
+        "text":  "Expresiones booleanas | Ahora se reduce por la producción (2), la acción semántica correspondiente llama a ***completa({102}, 104)***, donde {102} como argumento indica un apuntador a la lista que contiene solo a 102, siendo esa lista apuntada por ***E1.listaverdad***. Esta llamada ***completa*** pone 104 en la proposición 102. Por tanto lo generado hasta ahora es: 100: if a \u003c b goto _ ; 101: goto _ ; 102: if c \u003c d goto 104 ; 103: goto _ ; 104: if e \u003c f goto _ ; 105: goto _."
     },
     {
         "slide":  85,
         "name":  "Slide80",
-        "text":  "Expresiones booleanas | La acción semántica asociada con la reducción ﬁnal por (1) llama a  completa({101}, 102) que deja a las proposiciones como: | Como se puede observar, toda esta expresión es verdadera ssi se  alcanzan los goto de las proposiciones 100 o 104, y falsa ssi al  alcanzar 103 y 105."
+        "text":  "Expresiones booleanas | La acción semántica asociada con la reducción final por (1) llama a ***completa({101}, 102)*** que deja a las proposiciones como: 100: if a \u003c b goto _ ; 101: goto 102 ; 102: if c \u003c d goto 104 ; 103: goto _ ; 104: if e \u003c f goto _ ; 105: goto _. | Como se puede observar, toda esta expresión es **verdadera** ssi se alcanzan los goto de las proposiciones 100 o 104, y **falsa** ssi al alcanzar 103 y 105."
     },
     {
         "slide":  86,
@@ -432,22 +432,22 @@
     {
         "slide":  87,
         "name":  "Slide82",
-        "text":  "Proposiciones de flujo del control | Ahora se muestra como se puede utilizar el relleno de retroceso para traducir proposiciones  de ﬂujo del control en una sola pasada. Como antes, la atención se concentra en la generación  de cuádruplos.\r\rA modo de ejemplo más extenso, se desarrolla un esquema de traducción para  proposiciones generadas por la siguiente semántica."
+        "text":  "Proposiciones de flujo del control | Ahora se muestra como se puede utilizar el ***relleno de retroceso*** para traducir proposiciones de flujo del control en una sola pasada. Como antes, la atención se concentra en la generación de cuádruplos. | A modo de ejemplo más extenso, se desarrolla un esquema de traducción para proposiciones generadas por la siguiente semántica."
     },
     {
         "slide":  88,
         "name":  "Slide83",
-        "text":  "Proposiciones de flujo del control | S indica una proposición, L una lista de proposiciones, A una  proposición de asignación  y E una expresión booleana.\r\rSe emplea  la misma  estructura de código para  las  proposiciones\rif-then, if-then-else y While-do de la sección anterior vista.\r\rEl enfoque general elegido será rellenar los saltos fuera de las  proposiciones cuando se encuentren sus destinos. No solo las  expresiones booleanas necesitan de dos listas de saltos que ocurren  cuando la expresión es verdadera y cuando es falsa, si no que las  proposiciones también necesitan listas de saltos al código que les  sigue en la secuencia de ejecución."
+        "text":  "Proposiciones de flujo del control | **S** indica una proposición, **L** una lista de proposiciones, **A** una proposición de asignación y **E** una expresión booleana. | Se emplea la misma estructura de código para las proposiciones **if-then**, **if-then-else** y **while-do** de la sección anterior vista. | El enfoque general elegido será rellenar los saltos fuera de las proposiciones cuando se encuentren sus destinos. No solo las expresiones booleanas necesitan de dos listas de saltos que ocurren cuando la expresión es verdadera y cuando es falsa, si no que las proposiciones también necesitan listas de saltos al código que les sigue en la secuencia de ejecución."
     },
     {
         "slide":  89,
         "name":  "Slide84",
-        "text":  "Esquema para implantar la traducción | A continuación se describe un esquema de traducción dirigido por la sintaxis para  generar traducciones para las construcciones de ﬂujo de control dadas  anteriormente.\r\rEl no terminal E tiene atributos de listaverdad y listafalso, como antes.\rL y S también necesitan una lista de cuadruplos vacíos que más tarde se habrá  que completar con relleno de retroceso.\rS.siguientelista es un apuntador a una lista que apunta a los saltos incondicionales y  condicionales al cuádruplo que le sigue a S en orden de su ejecución. L.siguientelista se  deﬁne de manera similar.\rEn todos los casos, el no terminal marcador M registra el número del  siguiente cuádruplo."
+        "text":  "Esquema para implantar la traducción | A continuación se describe un esquema de traducción dirigido por la sintaxis para generar traducciones para las construcciones de flujo de control dadas anteriormente. | El no terminal **E** tiene atributos de ***listaverdad*** y ***listafalso***, como antes.\n**L** y **S** también necesitan una lista de cuadruplos vacíos que más tarde se habrá que completar con relleno de retroceso.\n***S.siguientelista*** es un apuntador a una lista que apunta a los saltos incondicionales y condicionales al cuádruplo que le sigue a S en orden de su ejecución. ***L.siguientelista*** se define de manera similar.\nEn todos los casos, el no terminal marcador **M** registra el número del siguiente cuádruplo."
     },
     {
         "slide":  90,
         "name":  "Slide85",
-        "text":  "Esquema para implantar la traducción | Obsérvese que no se generan nuevos  cuadruplos en ninguna parte en estas reglas  semánticas, excepto en las reglas (2) y (5).\r\rEl resto del código se genera mediante las  acciones semánticas asociadas con las  proposiciones de asignación y las expresiones."
+        "text":  "Esquema para implantar la traducción | Obsérvese que no se generan nuevos cuadruplos en ninguna parte en estas reglas semánticas, excepto en las reglas (2) y (5). | El resto del código se genera mediante las acciones semánticas asociadas con las proposiciones de asignación y las expresiones."
     },
     {
         "slide":  91,
